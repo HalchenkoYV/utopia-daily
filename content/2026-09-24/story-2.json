@@ -1,0 +1,76 @@
+{
+  "status": "published",
+  "topic_category": "Energy",
+  "levels": {
+    "a1": {
+      "title": "Bikes Make Power for a Film",
+      "excerpt": "In a small cinema, people ride bikes and make power for the film.",
+      "body": "A small town has an old cinema. Every Friday, it shows a film. But the film needs power.\n\nNear the screen, there are 20 bikes. People sit on the bikes and ride. The bikes make power for the film!\n\nIdris is 24. He is a student. He fixes old bikes. This is his idea.\n\nEvery person rides for 15 minutes. Then a new person rides. The tickets are free for riders.\n\nThe bikes make power for the popcorn, too. People love Friday nights.",
+      "vocab": [
+        { "word": "cinema", "definition": "a place where you watch films" },
+        { "word": "screen", "definition": "a big, flat, white thing; you see the film on it" },
+        { "word": "power", "definition": "energy for lights and machines" },
+        { "word": "fixes", "definition": "makes a broken thing good again" },
+        { "word": "tickets", "definition": "small papers; you need them to go in" },
+        { "word": "popcorn", "definition": "a snack; hot corn that goes “pop”" }
+      ]
+    },
+    "a2": {
+      "title": "Bike Power Brings Films to a Small Cinema",
+      "excerpt": "Every Friday, twenty people ride bikes to make electricity for the film, and they love it.",
+      "body": "A small hill town has an old cinema with 150 seats. Last spring, it started something new called Pedal Night.\n\nThe idea came from Idris, a 24-year-old engineering student. He collected 20 old bikes and fixed them. Then he connected them to a big battery. When people ride the bikes, they make electricity for the film.\n\nEach person rides for 15 minutes. Then another person takes a turn. Riders get a free ticket. When riders stop, the screen gets dark. So everybody shouts and cheers for them!\n\nExtra power goes to the popcorn machine.\n\nThe cinema was full every Friday this summer. “People come for the film,” Idris said. “But they stay for the bikes.”",
+      "vocab": [
+        { "word": "engineering", "definition": "the study of how to build machines, roads and other things" },
+        { "word": "collected", "definition": "got things from different places and put them together" },
+        { "word": "connected", "definition": "joined one thing to another" },
+        { "word": "battery", "definition": "a thing that keeps electricity for later" },
+        { "word": "electricity", "definition": "power for lights, TVs and machines" },
+        { "word": "cheers", "definition": "shouts to show you are happy or to help someone" }
+      ]
+    },
+    "b1": {
+      "title": "The Cinema Where the Audience Powers the Film",
+      "excerpt": "A small hill-town cinema has swapped the power grid for twenty old bicycles — and its Friday screenings have sold out every week since spring.",
+      "body": "Every Friday evening, twenty people climb onto bicycles at the front of a small cinema in a hill town — and the film can't start until they begin pedalling.\n\nThe idea for “Pedal Night” came from Idris Hale, a 24-year-old engineering student who has been repairing old bikes since he was a teenager. Last winter, he collected twenty unwanted bicycles from neighbours, fixed them up and connected them to a large battery. When the riders pedal, they produce enough electricity to run the projector and the speakers.\n\nEach rider takes a fifteen-minute shift and gets in for free. If the pedalling slows down, the picture on the screen starts to fade — so the rest of the audience cheers the riders on. “It's like a football match and a film at the same time,” says Idris.\n\nThe battery stores any extra energy, so the film doesn't flicker when riders change over. Whatever is left at the end of the night goes to the popcorn machine.\n\nSince the first screening in April, all 150 seats have been booked every week. Other towns have already been in touch to ask how the system works.\n\n“People come for the film,” Idris says, “but they stay for the pedalling. Some of them have never been this excited about electricity.”",
+      "vocab": [
+        { "word": "pedalling", "definition": "pushing the pedals of a bicycle round with your feet" },
+        { "word": "repairing", "definition": "fixing something that is broken" },
+        { "word": "unwanted", "definition": "not needed or wanted by anyone" },
+        { "word": "projector", "definition": "a machine that shows a film on a screen" },
+        { "word": "shift", "definition": "a period of time when a person works or does a task" },
+        { "word": "fade", "definition": "to slowly become less bright" },
+        { "word": "flicker", "definition": "to shine in an unsteady way, going bright and dark quickly" }
+      ]
+    },
+    "b2": {
+      "title": "Pedal Power: The Small Cinema Where the Audience Keeps the Lights On",
+      "excerpt": "Twenty donated bicycles, one large battery and a very enthusiastic crowd have turned a quiet hill-town cinema into the hottest ticket in the region.",
+      "body": "On Friday evenings, the lights in a small hill-town cinema dim, the audience falls silent — and twenty people at the front of the room start pedalling as if their evening depended on it. In a sense, it does: without them, the film would not play at all.\n\nThe scheme, known locally as Pedal Night, is the brainchild of Idris Hale, a 24-year-old engineering student who has been tinkering with bicycles since he was twelve. Last winter he asked neighbours to donate any bikes they no longer used, and he was offered more than forty. Twenty of them were restored, mounted on stands and wired into a large battery that feeds the cinema's projector and sound system.\n\nThe rules are simple. Riders pedal in fifteen-minute shifts and, in return, are let in free of charge. If the effort flags, the picture on the screen visibly dims — which, as Idris cheerfully points out, is excellent motivation. “Honestly, the audience is tougher than any coach,” he said. “The moment the image starts to fade, the whole room starts chanting.”\n\nBecause the battery stores surplus energy, the film does not flicker when riders swap over. Any power that is left at the end of the night is diverted to the popcorn machine, a detail that has done wonders for recruitment.\n\nThe cinema's manager admitted that she had been doubtful when the idea was first put to her. “If you had told me a year ago that people would queue to pedal their way through a film, I would have assumed you were joking,” she said. Since the first screening in April, however, all 150 seats have been booked every single week, and there is now a waiting list for the bikes themselves.\n\nThe project has attracted interest well beyond the town. Several community venues have been in touch to ask how the system was built, and Idris has published his wiring plans online so that anyone can copy them.\n\nAs for the films, the audience has developed firm opinions. “Action films are the most popular,” Idris says. “You'd be amazed how fast people pedal during a car chase.”",
+      "vocab": [
+        { "word": "brainchild", "definition": "an original idea or invention that belongs to a particular person" },
+        { "word": "tinkering", "definition": "making small changes to something in order to repair or improve it" },
+        { "word": "donate", "definition": "to give something to help a person or group, without asking for money" },
+        { "word": "flags", "definition": "(of energy or effort) becomes weaker or less" },
+        { "word": "surplus", "definition": "an amount that is more than what is needed" },
+        { "word": "diverted", "definition": "sent in a different direction or used for a different purpose" },
+        { "word": "recruitment", "definition": "the process of finding new people to join something" },
+        { "word": "venues", "definition": "places where events such as concerts or films take place" }
+      ]
+    },
+    "c1": {
+      "title": "Pedal-Powered Pictures: How Twenty Bicycles Turned a Quiet Cinema Into the Hottest Ticket in the Hills",
+      "excerpt": "When a young engineering student wired a row of donated bicycles to a small town's cinema, he expected a novelty; instead, he has created a weekly ritual in which the audience quite literally keeps the story alive.",
+      "body": "There is a moment, roughly forty minutes into any Friday screening at a modest cinema in the hills, when the picture begins — ever so slightly — to fade. No one reaches for a phone to complain. Instead, the audience turns towards the twenty cyclists lined up beneath the screen and, as one, starts to chant.\n\nWelcome to Pedal Night, perhaps the only film club in which the audience doubles as the power station. The concept belongs to Idris Hale, a 24-year-old engineering student who has been dismantling and rebuilding bicycles since he was twelve. Last winter, looking for a project to fill the long evenings, he appealed to neighbours for any bikes gathering dust in their sheds. More than forty arrived within a fortnight. Twenty were restored, fixed to purpose-built stands and wired into a bank of batteries that now supplies the cinema's projector and sound system.\n\nThe arrangement is disarmingly simple. Volunteers ride in fifteen-minute shifts and are admitted free of charge in exchange. Should their collective effort falter, the image dims perceptibly — a design feature Idris describes, with barely concealed glee, as “the most honest feedback system ever invented”. The batteries smooth out the handover between riders, so the film never flickers, and whatever surplus remains at the end of the evening is channelled into the popcorn machine. That last detail, he concedes, has done more for volunteer numbers than any appeal to environmental virtue.\n\nThe cinema's manager was, by her own admission, sceptical when the idea was first put to her. “Had anyone told me a year ago that people would queue for the privilege of pedalling through a feature film, I'd have shown them the door,” she says. Yet since the inaugural screening in April, all 150 seats have been booked every week, and the waiting list for a place on the bikes now runs to several months. Regulars have even begun to form teams, each with its own name and — inevitably — its own fiercely contested record for the most energy generated in a single shift.\n\nWhat makes the scheme notable is not the quantity of electricity it produces, which Idris is quick to point out is modest, but the way it has transformed an evening out into a shared act of effort. Strangers cheer each other on; teenagers who once regarded the cinema as hopelessly old-fashioned now compete for Friday shifts. “You can't really scroll through your phone when you're responsible for the lighting,” one rider observed.\n\nInterest has spread well beyond the town. Community venues across the region have asked for guidance, and Idris has published his wiring diagrams online so that others can replicate the system at minimal cost. A travelling version, mounted on a trailer, is already being planned for next summer's outdoor screenings.\n\nFor Idris, the project has also proved an unexpectedly effective education. Keeping twenty elderly bicycles in working order, he notes wryly, has taught him more about friction, wear and improvisation than any lecture theatre. His workshop — a corner of the cinema's former storeroom — is now staffed on Thursday evenings by a rotating crew of volunteers, several of whom had never held a spanner before joining. “Half of them came for the films,” he says. “Now they argue with me about gear ratios.”\n\nAs for programming, the audience has developed pronounced preferences. Slow, dialogue-heavy dramas, it transpires, are something of a hazard, since riders tend to drift into a gentle, contemplative rhythm and the picture drifts with them. Action films, on the other hand, are wildly popular. “Put on a car chase,” Idris says, grinning, “and the battery is full by the interval.”",
+      "vocab": [
+        { "word": "dismantling", "definition": "taking something apart, piece by piece" },
+        { "word": "fortnight", "definition": "a period of two weeks" },
+        { "word": "disarmingly", "definition": "in a way that is so simple or honest that people cannot be critical" },
+        { "word": "falter", "definition": "to lose strength or become weaker" },
+        { "word": "concedes", "definition": "admits, often unwillingly, that something is true" },
+        { "word": "inaugural", "definition": "first, marking the beginning of something" },
+        { "word": "replicate", "definition": "to copy something exactly" },
+        { "word": "transpires", "definition": "turns out; becomes known" }
+      ]
+    }
+  }
+}

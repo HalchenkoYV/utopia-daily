@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Utopia Daily — homepage mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #EFF3EE;
+    --ink: #1C2B33;
+    --ink-soft: #3A4A50;
+    --muted: #6B7A78;
+    --card: #FBFAF6;
+    --card-border: #DDE3DA;
+
+    /* level gradient: pale (A1) -> deep blue (C1), tuned for clear steps in light & dark */
+    --lvl-a1: #C9DCF2;
+    --lvl-a2: #97BEE8;
+    --lvl-b1: #5E96D8;
+    --lvl-b2: #3568B3;
+    --lvl-c1: #17315E;
+
+    --lvl-a1-ink: #1F3A54;
+    --lvl-a2-ink: #16314B;
+    --lvl-b1-ink: #FFFFFF;
+    --lvl-b2-ink: #FFFFFF;
+    --lvl-c1-ink: #FFFFFF;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ---- Header ---- */
+  header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--card-border);
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    background: var(--bg);
+    z-index: 10;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .brand-block { display: flex; flex-direction: column; gap: 2px; }
+  .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 21px;
+    font-weight: 700;
+  }
+  .logo .daily { color: var(--lvl-c1); }
+  .brand-tagline {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .brand-tagline .dim { opacity: 0.55; }
+
+  .level-select {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-top: 2px;
+  }
+  .level-select .label {
+    font-size: 10.5px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+  nav.levels {
+    display: flex;
+    gap: 5px;
+  }
+  nav.levels button {
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    color: var(--ink-soft);
+    padding: 6px 12px 10px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    position: relative;
+  }
+  nav.levels button::after {
+    content: "";
+    position: absolute;
+    left: 22%; right: 22%; bottom: 5px;
+    height: 3px; border-radius: 2px;
+  }
+  nav.levels button[data-lvl="a1"]::after { background: var(--lvl-a1); }
+  nav.levels button[data-lvl="a2"]::after { background: var(--lvl-a2); }
+  nav.levels button[data-lvl="b1"]::after { background: var(--lvl-b1); }
+  nav.levels button[data-lvl="b2"]::after { background: var(--lvl-b2); }
+  nav.levels button[data-lvl="c1"]::after { background: var(--lvl-c1); }
+  nav.levels button.active { border-color: var(--ink); color: var(--ink); }
+  nav.levels button.active::after { left: 12%; right: 12%; height: 4px; }
+
+  .header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-top: 2px;
+  }
+  .btn-ghost {
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--card-border);
+    background: transparent;
+    color: var(--ink);
+  }
+  .btn-solid {
+    padding: 9px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    background: var(--ink);
+    color: var(--bg);
+  }
+  .words-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .words-toggle .count {
+    background: var(--lvl-b2);
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 20px;
+  }
+
+  /* ---- Layout ---- */
+  .page {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    align-items: flex-start;
+  }
+  main {
+    flex: 1;
+    min-width: 0;
+    padding: 40px 40px 80px;
+  }
+
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 460px;
+    margin-bottom: 40px;
+    padding: 10px 16px;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    background: var(--card);
+  }
+  .search-bar .icon { font-size: 15px; color: var(--muted); flex-shrink: 0; }
+  .search-bar input {
+    border: none;
+    background: none;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    width: 100%;
+  }
+  .search-bar input::placeholder { color: var(--muted); }
+
+  .day-label {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .section-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .section-heading h2 { font-size: 22px; }
+  .section-heading .sub { font-size: 13px; color: var(--muted); }
+
+  /* image placeholders — CSS-generated, no external assets */
+  .thumb {
+    border-radius: 10px 10px 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .thumb::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.18) 100%);
+  }
+  .thumb.env { background: radial-gradient(circle at 25% 20%, #9FC9A6, transparent 60%), radial-gradient(circle at 75% 70%, #4F8A6A, transparent 55%), #C9DDC6; }
+  .thumb.energy { background: radial-gradient(circle at 30% 25%, #F4D48A, transparent 60%), radial-gradient(circle at 75% 75%, #E0A93D, transparent 55%), #F0E3C0; }
+  .thumb.community { background: radial-gradient(circle at 30% 30%, #A9C6E4, transparent 60%), radial-gradient(circle at 75% 70%, #33578A, transparent 55%), #CBDCEC; }
+  .thumb.culture { background: radial-gradient(circle at 30% 30%, #E3B7C7, transparent 60%), radial-gradient(circle at 75% 70%, #A85C7A, transparent 55%), #EAD4DD; }
+  .thumb.food { background: radial-gradient(circle at 30% 30%, #F1C79C, transparent 60%), radial-gradient(circle at 75% 70%, #C9773B, transparent 55%), #F3DEC4; }
+  .thumb.tech { background: radial-gradient(circle at 30% 30%, #B9C6E8, transparent 60%), radial-gradient(circle at 75% 70%, #4E5D9A, transparent 55%), #D6DCEF; }
+
+  /* ---- Today's stories ---- */
+  .today-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-bottom: 60px;
+  }
+  .story-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-top: 4px solid var(--lvl-b1);
+  }
+  .story-card .thumb { height: 130px; border-radius: 0; }
+  .story-card .body { padding: 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+  .story-topic {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .story-card h3 { font-size: 19px; line-height: 1.28; }
+  .story-card p.excerpt {
+    font-size: 14px; line-height: 1.55; color: var(--ink-soft); margin: 0; min-height: 63px;
+  }
+  .lvl-switch { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; }
+  .lvl-chip {
+    border: 1px solid var(--card-border);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 9px 8px;
+    border-radius: 6px;
+    color: var(--muted);
+    position: relative;
+  }
+  .lvl-chip::after {
+    content: "";
+    position: absolute;
+    left: 22%; right: 22%; bottom: 3px;
+    height: 2.5px; border-radius: 2px;
+  }
+  .lvl-chip[data-lvl="a1"]::after { background: var(--lvl-a1); }
+  .lvl-chip[data-lvl="a2"]::after { background: var(--lvl-a2); }
+  .lvl-chip[data-lvl="b1"]::after { background: var(--lvl-b1); }
+  .lvl-chip[data-lvl="b2"]::after { background: var(--lvl-b2); }
+  .lvl-chip[data-lvl="c1"]::after { background: var(--lvl-c1); }
+  .lvl-chip.active { border-color: var(--ink); color: var(--ink); }
+  .lvl-chip.active::after { left: 10%; right: 10%; height: 3.5px; }
+  .ielts-note { font-size: 10.5px; color: var(--muted); }
+  .story-foot { margin-top: auto; display: flex; justify-content: space-between; font-size: 12.5px; color: var(--muted); }
+
+  /* ---- Day blocks / feed cards (Yesterday, older days, Popular) ---- */
+  .day-block { margin-bottom: 52px; }
+  .feed-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .feed-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .feed-card .thumb { height: 110px; border-radius: 0; }
+  .feed-card .body { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .feed-card .topic {
+    font-size: 11px; font-weight: 700; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.03em;
+  }
+  .feed-card h3 { font-size: 15.5px; line-height: 1.32; }
+  .feed-card .excerpt { font-size: 13px; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+  .feed-card .feed-foot {
+    margin-top: auto; display: flex; align-items: center; gap: 8px;
+    font-size: 11.5px; color: var(--muted); padding-top: 4px;
+  }
+  .level-tag {
+    position: relative;
+    padding-bottom: 5px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+  .level-tag::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 2.5px; border-radius: 2px;
+  }
+  .level-tag[data-lvl="a1"]::after { background: var(--lvl-a1); }
+  .level-tag[data-lvl="a2"]::after { background: var(--lvl-a2); }
+  .level-tag[data-lvl="b1"]::after { background: var(--lvl-b1); }
+  .level-tag[data-lvl="b2"]::after { background: var(--lvl-b2); }
+  .level-tag[data-lvl="c1"]::after { background: var(--lvl-c1); }
+  .feed-foot .dot { opacity: 0.5; }
+
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 30px 40px 40px;
+    text-align: center;
+  }
+  footer .brand { font-family: 'Fraunces', serif; font-size: 16px; font-weight: 700; }
+  footer .for-learners { font-size: 12.5px; color: var(--lvl-b1); font-weight: 600; margin-top: 3px; }
+  footer .tagline { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  footer .powered { font-size: 10.5px; color: var(--ink); opacity: 0.35; margin-top: 10px; }
+
+  /* ---- Sidebar (My Words) ---- */
+  aside.words-panel {
+    width: 300px; flex-shrink: 0; border-left: 1px solid var(--card-border);
+    min-height: 100vh; padding: 32px 26px; position: sticky; top: 0;
+    transition: margin-right 0.25s ease, opacity 0.2s ease;
+  }
+  aside.words-panel.closed { margin-right: -352px; opacity: 0; pointer-events: none; }
+  .words-panel h2 { font-size: 19px; margin-bottom: 4px; }
+  .words-panel .sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .word-item { padding: 13px 0; border-bottom: 1px solid var(--card-border); }
+  .word-item .w { font-weight: 600; font-size: 15px; }
+  .word-item .def { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+  .word-item .src { font-size: 11px; color: var(--lvl-c1); margin-top: 4px; font-weight: 600; }
+
+  @media (max-width: 980px) {
+    .page { flex-direction: column; }
+    aside.words-panel {
+      width: 100%; min-height: auto; position: static; border-left: none; border-top: 1px solid var(--card-border);
+    }
+    aside.words-panel.closed { margin-right: 0; display: none; }
+    .today-grid, .feed-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    header { padding: 16px 18px; }
+    main { padding: 28px 18px 60px; }
+    .today-grid, .feed-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #14201F; --ink: #EDEFE8; --ink-soft: #B9C4BE; --muted: #8A9793; --card: #1B2827; --card-border: #2C3937;
+    }
+  }
+  :root[data-theme="dark"] { --bg: #14201F; --ink: #EDEFE8; --ink-soft: #B9C4BE; --muted: #8A9793; --card: #1B2827; --card-border: #2C3937; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand-block">
+    <div class="logo">Utopia <span class="daily">Daily</span></div>
+    <div class="brand-tagline">real fake news <span class="dim">· powered by ai</span></div>
+  </div>
+
+  <div class="level-select">
+    <span class="label">YOUR LEVEL</span>
+    <nav class="levels" id="levelNav">
+      <button data-lvl="a1">A1</button>
+      <button data-lvl="a2">A2</button>
+      <button data-lvl="b1" class="active">B1</button>
+      <button data-lvl="b2">B2</button>
+      <button data-lvl="c1">C1</button>
+    </nav>
+  </div>
+
+  <div class="header-actions">
+    <button class="words-toggle" id="wordsToggle">My Words <span class="count">12</span></button>
+    <button class="btn-ghost">Log in</button>
+    <button class="btn-solid">Sign up</button>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+
+    <div class="search-bar">
+      <span class="icon">⌕</span>
+      <input type="text" id="searchInput" placeholder="Search stories, topics, words…">
+    </div>
+
+    <section class="day-block">
+    <div class="day-label">Today — Tuesday, September 22 — 6 new stories</div>
+
+    <div class="today-grid">
+
+      <div class="story-card" data-story="1">
+        <div class="thumb env"></div>
+        <div class="body">
+          <div class="story-topic">Environment</div>
+          <h3 class="s-title">A City Turns Every Rooftop Into a Garden</h3>
+          <p class="excerpt s-excerpt">Three years ago the rooftops were empty. Now they are full of tomatoes, lavender, and the quiet hum of returning bees.</p>
+          <div class="lvl-switch" data-story-switch="1">
+            <button class="lvl-chip" data-lvl="a1">A1</button>
+            <button class="lvl-chip" data-lvl="a2">A2</button>
+            <button class="lvl-chip active" data-lvl="b1">B1</button>
+            <button class="lvl-chip" data-lvl="b2">B2</button>
+            <button class="lvl-chip" data-lvl="c1">C1</button>
+          </div>
+          <div class="ielts-note s-ielts">≈ IELTS 4.5–5.5</div>
+          <div class="story-foot"><span class="s-time">5 min read</span><span>1,240 readers</span></div>
+        </div>
+      </div>
+
+      <div class="story-card" data-story="2">
+        <div class="thumb energy"></div>
+        <div class="body">
+          <div class="story-topic">Energy</div>
+          <h3 class="s-title">A Village Runs Entirely on Sunshine</h3>
+          <p class="excerpt s-excerpt">Every house, every lamp, every kettle — powered by the sun. Locals say they forgot what a power cut feels like.</p>
+          <div class="lvl-switch" data-story-switch="2">
+            <button class="lvl-chip" data-lvl="a1">A1</button>
+            <button class="lvl-chip" data-lvl="a2">A2</button>
+            <button class="lvl-chip active" data-lvl="b1">B1</button>
+            <button class="lvl-chip" data-lvl="b2">B2</button>
+            <button class="lvl-chip" data-lvl="c1">C1</button>
+          </div>
+          <div class="ielts-note s-ielts">≈ IELTS 4.5–5.5</div>
+          <div class="story-foot"><span class="s-time">4 min read</span><span>980 readers</span></div>
+        </div>
+      </div>
+
+      <div class="story-card" data-story="3">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="story-topic">Community</div>
+          <h3 class="s-title">The Library That Never Closes Its Doors</h3>
+          <p class="excerpt s-excerpt">A small town library stayed open all night for the first time — and something unexpected happened by morning.</p>
+          <div class="lvl-switch" data-story-switch="3">
+            <button class="lvl-chip" data-lvl="a1">A1</button>
+            <button class="lvl-chip" data-lvl="a2">A2</button>
+            <button class="lvl-chip active" data-lvl="b1">B1</button>
+            <button class="lvl-chip" data-lvl="b2">B2</button>
+            <button class="lvl-chip" data-lvl="c1">C1</button>
+          </div>
+          <div class="ielts-note s-ielts">≈ IELTS 4.5–5.5</div>
+          <div class="story-foot"><span class="s-time">6 min read</span><span>740 readers</span></div>
+        </div>
+      </div>
+
+      <div class="story-card" data-story="4">
+        <div class="thumb tech"></div>
+        <div class="body">
+          <div class="story-topic">Technology</div>
+          <h3 class="s-title">A Small Town Builds Its Own Free Internet</h3>
+          <p class="excerpt s-excerpt">Volunteers strung the cables themselves. Now every home in town has free, fast internet — no company involved.</p>
+          <div class="lvl-switch" data-story-switch="4">
+            <button class="lvl-chip" data-lvl="a1">A1</button>
+            <button class="lvl-chip" data-lvl="a2">A2</button>
+            <button class="lvl-chip active" data-lvl="b1">B1</button>
+            <button class="lvl-chip" data-lvl="b2">B2</button>
+            <button class="lvl-chip" data-lvl="c1">C1</button>
+          </div>
+          <div class="ielts-note s-ielts">≈ IELTS 4.5–5.5</div>
+          <div class="story-foot"><span class="s-time">4 min read</span><span>510 readers</span></div>
+        </div>
+      </div>
+
+      <div class="story-card" data-story="5">
+        <div class="thumb culture"></div>
+        <div class="body">
+          <div class="story-topic">Culture</div>
+          <h3 class="s-title">An Old Theatre Reopens After 40 Years</h3>
+          <p class="excerpt s-excerpt">The doors had been locked since 1986. On opening night, every single seat was full.</p>
+          <div class="lvl-switch" data-story-switch="5">
+            <button class="lvl-chip" data-lvl="a1">A1</button>
+            <button class="lvl-chip" data-lvl="a2">A2</button>
+            <button class="lvl-chip active" data-lvl="b1">B1</button>
+            <button class="lvl-chip" data-lvl="b2">B2</button>
+            <button class="lvl-chip" data-lvl="c1">C1</button>
+          </div>
+          <div class="ielts-note s-ielts">≈ IELTS 4.5–5.5</div>
+          <div class="story-foot"><span class="s-time">5 min read</span><span>690 readers</span></div>
+        </div>
+      </div>
+
+      <div class="story-card" data-story="6">
+        <div class="thumb food"></div>
+        <div class="body">
+          <div class="story-topic">Food</div>
+          <h3 class="s-title">A Bakery Teaches the Whole Street to Bake Bread</h3>
+          <p class="excerpt s-excerpt">Every Sunday, the baker gives away flour and a lesson. Half the street now bakes its own bread.</p>
+          <div class="lvl-switch" data-story-switch="6">
+            <button class="lvl-chip" data-lvl="a1">A1</button>
+            <button class="lvl-chip" data-lvl="a2">A2</button>
+            <button class="lvl-chip active" data-lvl="b1">B1</button>
+            <button class="lvl-chip" data-lvl="b2">B2</button>
+            <button class="lvl-chip" data-lvl="c1">C1</button>
+          </div>
+          <div class="ielts-note s-ielts">≈ IELTS 4.5–5.5</div>
+          <div class="story-foot"><span class="s-time">3 min read</span><span>430 readers</span></div>
+        </div>
+      </div>
+
+    </div>
+    </section>
+
+    <section class="day-block">
+    <div class="day-label">Yesterday — Monday, September 21</div>
+    <div class="feed-grid">
+
+      <div class="feed-card">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>Kids Design a Park, and the City Says Yes</h3>
+          <p class="excerpt">Ten children drew their dream park. Next spring, it opens exactly as they imagined it.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a2">A2</span><span class="dot">·</span><span>3 min read</span><span class="dot">·</span><span>1,120 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>How a Bankrupt Town Rebuilt Itself Around Its Rivers</h3>
+          <p class="excerpt">A decade-long plan turned a struggling industrial town into a model for the rest of the country.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="c1">C1</span><span class="dot">·</span><span>8 min read</span><span class="dot">·</span><span>610 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb culture"></div>
+        <div class="body">
+          <div class="topic">Culture</div>
+          <h3>A Dog Learns to Say "Thank You"</h3>
+          <p class="excerpt">Simple words. A simple story. A very good dog.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a1">A1</span><span class="dot">·</span><span>1 min read</span><span class="dot">·</span><span>2,310 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb env"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>The Bridge Painted Entirely by Volunteers</h3>
+          <p class="excerpt">Three hundred neighbours, one weekend, and enough paint to change how the whole town sees its river.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b2">B2</span><span class="dot">·</span><span>6 min read</span><span class="dot">·</span><span>540 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb tech"></div>
+        <div class="body">
+          <div class="topic">Environment</div>
+          <h3>A School Turns Its Parking Lot Into a Forest</h3>
+          <p class="excerpt">Two hundred trees, no more cars, and a playground that now feels like a walk in the woods.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b1">B1</span><span class="dot">·</span><span>4 min read</span><span class="dot">·</span><span>480 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb food"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>Neighbours Turn an Empty Lot Into a Free Orchard</h3>
+          <p class="excerpt">Anyone can pick the fruit. Nobody has taken more than they need — not once, all summer.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a2">A2</span><span class="dot">·</span><span>3 min read</span><span class="dot">·</span><span>390 readers</span></div>
+        </div>
+      </div>
+
+    </div>
+    </section>
+
+    <section class="day-block">
+    <div class="day-label">Saturday, September 19</div>
+    <div class="feed-grid">
+
+      <div class="feed-card">
+        <div class="thumb energy"></div>
+        <div class="body">
+          <div class="topic">Energy</div>
+          <h3>A Ferry Route Switches to Electric Boats</h3>
+          <p class="excerpt">No engine noise, no fumes — just the sound of water against the hull.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b1">B1</span><span class="dot">·</span><span>4 min read</span><span class="dot">·</span><span>410 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb culture"></div>
+        <div class="body">
+          <div class="topic">Culture</div>
+          <h3>A Mural Project Lets Every Resident Paint One Brick</h3>
+          <p class="excerpt">Six thousand bricks, six thousand small pictures, one very long wall.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a2">A2</span><span class="dot">·</span><span>3 min read</span><span class="dot">·</span><span>360 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb tech"></div>
+        <div class="body">
+          <div class="topic">Technology</div>
+          <h3>Students Build an App That Finds Unclaimed Library Fines</h3>
+          <p class="excerpt">The library refunded nearly a decade of forgotten deposits in a single week.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b2">B2</span><span class="dot">·</span><span>5 min read</span><span class="dot">·</span><span>295 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb env"></div>
+        <div class="body">
+          <div class="topic">Environment</div>
+          <h3>A River Thought Dead for 30 Years Has Fish Again</h3>
+          <p class="excerpt">Local fishers were the first to notice — and the first to not believe it.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="c1">C1</span><span class="dot">·</span><span>7 min read</span><span class="dot">·</span><span>520 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb food"></div>
+        <div class="body">
+          <div class="topic">Food</div>
+          <h3>A Restaurant Pays Its Staff With Shares in the Business</h3>
+          <p class="excerpt">Every waiter is now a part-owner. Turnover dropped to almost zero.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b1">B1</span><span class="dot">·</span><span>4 min read</span><span class="dot">·</span><span>330 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>A Retirement Home and a Kindergarten Share One Building</h3>
+          <p class="excerpt">The children call the residents "grandparents." Most of them mean it.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a1">A1</span><span class="dot">·</span><span>2 min read</span><span class="dot">·</span><span>610 readers</span></div>
+        </div>
+      </div>
+
+    </div>
+    </section>
+
+    <section class="day-block">
+    <div class="day-label">Popular</div>
+    <div class="feed-grid">
+
+      <div class="feed-card">
+        <div class="thumb culture"></div>
+        <div class="body">
+          <div class="topic">Culture</div>
+          <h3>A Dog Learns to Say "Thank You"</h3>
+          <p class="excerpt">Simple words. A simple story. A very good dog.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a1">A1</span><span class="dot">·</span><span>1 min read</span><span class="dot">·</span><span>2,310 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb env"></div>
+        <div class="body">
+          <div class="topic">Environment</div>
+          <h3>A City Turns Every Rooftop Into a Garden</h3>
+          <p class="excerpt">Three years ago the rooftops were empty. Now they hum with bees.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b1">B1</span><span class="dot">·</span><span>5 min read</span><span class="dot">·</span><span>1,240 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>Kids Design a Park, and the City Says Yes</h3>
+          <p class="excerpt">Ten children drew their dream park. Next spring, it opens exactly as they imagined it.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a2">A2</span><span class="dot">·</span><span>3 min read</span><span class="dot">·</span><span>1,120 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb energy"></div>
+        <div class="body">
+          <div class="topic">Energy</div>
+          <h3>A Village Runs Entirely on Sunshine</h3>
+          <p class="excerpt">Every house, every lamp, every kettle — powered by the sun.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b1">B1</span><span class="dot">·</span><span>4 min read</span><span class="dot">·</span><span>980 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>A Retirement Home and a Kindergarten Share One Building</h3>
+          <p class="excerpt">The children call the residents "grandparents." Most of them mean it.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="a1">A1</span><span class="dot">·</span><span>2 min read</span><span class="dot">·</span><span>610 readers</span></div>
+        </div>
+      </div>
+
+      <div class="feed-card">
+        <div class="thumb community"></div>
+        <div class="body">
+          <div class="topic">Community</div>
+          <h3>The Library That Never Closes Its Doors</h3>
+          <p class="excerpt">A small town library stayed open all night — and something unexpected happened.</p>
+          <div class="feed-foot"><span class="level-tag" data-lvl="b1">B1</span><span class="dot">·</span><span>6 min read</span><span class="dot">·</span><span>740 readers</span></div>
+        </div>
+      </div>
+
+    </div>
+    </section>
+
+  </main>
+
+  <aside class="words-panel" id="wordsPanel">
+    <h2>My Words</h2>
+    <div class="sub">Words you marked while reading</div>
+    <div class="word-item"><div class="w">rooftop</div><div class="def">the roof of a building</div><div class="src">A City Turns Every Rooftop…</div></div>
+    <div class="word-item"><div class="w">sunshine</div><div class="def">light and heat from the sun</div><div class="src">A Village Runs Entirely…</div></div>
+    <div class="word-item"><div class="w">struggling</div><div class="def">having a hard time; finding something difficult</div><div class="src">How a Bankrupt Town…</div></div>
+    <div class="word-item"><div class="w">bankrupt</div><div class="def">unable to pay debts; financially ruined</div><div class="src">How a Bankrupt Town…</div></div>
+  </aside>
+</div>
+
+<footer>
+  <div class="brand">Utopia Daily</div>
+  <div class="for-learners">for English learners</div>
+  <div class="tagline">real; fake news</div>
+  <div class="powered">powered by AI</div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('wordsToggle');
+  const panel = document.getElementById('wordsPanel');
+  toggle.addEventListener('click', () => panel.classList.toggle('closed'));
+
+  const globalLevels = document.querySelectorAll('#levelNav button');
+  globalLevels.forEach(btn => {
+    btn.addEventListener('click', () => {
+      globalLevels.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const lvl = btn.dataset.lvl;
+      document.querySelectorAll('.lvl-switch').forEach(sw => setLevel(sw, lvl));
+    });
+  });
+
+  const storyData = {
+    1: {
+      title: {
+        a1: "A City Grows a Garden",
+        a2: "A City Turns Roofs Into Gardens",
+        b1: "A City Turns Every Rooftop Into a Garden",
+        b2: "A City Turns Every Rooftop Into a Garden — and Bees Move Back In",
+        c1: "How One City Rewilded Its Skyline, One Rooftop at a Time"
+      },
+      excerpt: {
+        a1: "The city has new gardens. They are on the roofs. Bees like them.",
+        a2: "Three years ago, the roofs were empty. Now they have plants and bees.",
+        b1: "Three years ago the rooftops were empty. Now they are full of tomatoes, lavender, and the quiet hum of returning bees.",
+        b2: "Three years ago the rooftops were empty grey slabs. Now they are dense with tomatoes, lavender, and the quiet hum of bees that had not been seen downtown in decades.",
+        c1: "What began as a modest pilot on three municipal buildings has, within three years, reshaped the city's skyline — and quietly reversed a decades-long decline in urban pollinator populations."
+      },
+      time: { a1: "2 min read", a2: "3 min read", b1: "5 min read", b2: "6 min read", c1: "8 min read" }
+    },
+    2: {
+      title: {
+        a1: "A Village Uses the Sun",
+        a2: "A Village Runs on Sun Power",
+        b1: "A Village Runs Entirely on Sunshine",
+        b2: "A Village Runs Entirely on Sunshine for the First Time",
+        c1: "The Small Village That Went Fully Solar — and Never Looked Back"
+      },
+      excerpt: {
+        a1: "The village uses the sun for power. All the houses use it now.",
+        a2: "Every house uses sun power now. People say it works very well.",
+        b1: "Every house, every lamp, every kettle — powered by the sun. Locals say they forgot what a power cut feels like.",
+        b2: "Every house, every streetlamp, every kettle now runs on sunlight. Locals say they had almost forgotten what a power cut felt like.",
+        c1: "Three years after installing its first communal solar array, the village has become entirely energy self-sufficient — a milestone its residents describe as almost anticlimactic in how ordinary it now feels."
+      },
+      time: { a1: "2 min read", a2: "3 min read", b1: "4 min read", b2: "5 min read", c1: "7 min read" }
+    },
+    3: {
+      title: {
+        a1: "A Library Stays Open",
+        a2: "This Library Never Closes",
+        b1: "The Library That Never Closes Its Doors",
+        b2: "The Small-Town Library That Never Closes Its Doors",
+        c1: "Why This Town's Library Decided to Never Lock Up Again"
+      },
+      excerpt: {
+        a1: "The library is open all night. People can read at any time.",
+        a2: "A small library stayed open all night. People liked it a lot.",
+        b1: "A small town library stayed open all night for the first time — and something unexpected happened by morning.",
+        b2: "A small-town library stayed open through the night for the first time — and by morning, something nobody expected had happened.",
+        c1: "When the town library quietly dropped its closing hours, staff expected a quiet trial. Instead, they found themselves at the centre of the town's most unexpected community experiment in years."
+      },
+      time: { a1: "1 min read", a2: "2 min read", b1: "6 min read", b2: "7 min read", c1: "9 min read" }
+    },
+    4: {
+      title: {
+        a1: "A Town Gets Free Internet",
+        a2: "A Small Town Builds Its Own Internet",
+        b1: "A Small Town Builds Its Own Free Internet",
+        b2: "A Small Town Builds Its Own Free Internet — No Company Involved",
+        c1: "How a Small Town Wired Itself for Free — and Cut Out the Telecoms Entirely"
+      },
+      excerpt: {
+        a1: "People in the town made their own internet. It is free for everyone.",
+        a2: "Volunteers put up the cables themselves. Now the internet is free for everyone.",
+        b1: "Volunteers strung the cables themselves. Now every home in town has free, fast internet — no company involved.",
+        b2: "Volunteers strung the cables themselves, house by house. Now every home in town has free, fast internet, with no company involved at all.",
+        c1: "Frustrated by years of poor coverage, a group of retired engineers spent eighteen months building a community-owned fibre network — one that now outperforms every commercial provider in the region."
+      },
+      time: { a1: "2 min read", a2: "2 min read", b1: "4 min read", b2: "5 min read", c1: "7 min read" }
+    },
+    5: {
+      title: {
+        a1: "A Theatre Opens Again",
+        a2: "An Old Theatre Opens After 40 Years",
+        b1: "An Old Theatre Reopens After 40 Years",
+        b2: "An Old Theatre Reopens After 40 Years — to a Full House",
+        c1: "After Four Decades Dark, a Town's Old Theatre Reopens to a Sold-Out Night"
+      },
+      excerpt: {
+        a1: "The theatre was closed for 40 years. Now it is open. Many people came.",
+        a2: "The doors were closed since 1986. Now they are open again, and people came.",
+        b1: "The doors had been locked since 1986. On opening night, every single seat was full.",
+        b2: "The doors had stayed locked since 1986. On opening night, every single seat in the house was full, and dozens more stood at the back.",
+        c1: "Restored largely through volunteer labour and a modest local grant, the theatre's first performance in four decades drew a queue that stretched three streets long."
+      },
+      time: { a1: "2 min read", a2: "3 min read", b1: "5 min read", b2: "6 min read", c1: "8 min read" }
+    },
+    6: {
+      title: {
+        a1: "A Baker Teaches Bread",
+        a2: "A Bakery Teaches the Street to Bake",
+        b1: "A Bakery Teaches the Whole Street to Bake Bread",
+        b2: "A Bakery Teaches the Whole Street to Bake Its Own Bread",
+        c1: "How One Baker's Sunday Lessons Turned an Entire Street Into Bakers"
+      },
+      excerpt: {
+        a1: "A baker gives free flour and lessons. Now many people bake bread.",
+        a2: "Every Sunday, the baker gives free flour and a lesson. People love it.",
+        b1: "Every Sunday, the baker gives away flour and a lesson. Half the street now bakes its own bread.",
+        b2: "Every Sunday morning, the baker gives away flour and a short lesson. Half the street now bakes its own bread at home.",
+        c1: "What started as a single free class for curious neighbours has, three years on, turned an entire street into a informal guild of home bakers who trade loaves like currency."
+      },
+      time: { a1: "1 min read", a2: "2 min read", b1: "3 min read", b2: "4 min read", c1: "6 min read" }
+    }
+  };
+
+  const ieltsMap = {
+    a1: "≈ IELTS below 3.5",
+    a2: "≈ IELTS 3.5–4.5",
+    b1: "≈ IELTS 4.5–5.5",
+    b2: "≈ IELTS 5.5–6.5",
+    c1: "≈ IELTS 7.0–8.0"
+  };
+
+  function setLevel(switchEl, lvl) {
+    const chips = switchEl.querySelectorAll('.lvl-chip');
+    chips.forEach(c => c.classList.toggle('active', c.dataset.lvl === lvl));
+    const card = switchEl.closest('.story-card');
+    const id = card.dataset.story;
+    const data = storyData[id];
+    card.querySelector('.s-title').textContent = data.title[lvl];
+    card.querySelector('.s-excerpt').textContent = data.excerpt[lvl];
+    card.querySelector('.s-time').textContent = data.time[lvl];
+    const border = getComputedStyle(document.documentElement).getPropertyValue('--lvl-' + lvl).trim();
+    card.style.borderTopColor = border;
+    const ielts = card.querySelector('.s-ielts');
+    ielts.textContent = ieltsMap[lvl];
+  }
+
+  document.querySelectorAll('.lvl-switch').forEach(sw => {
+    sw.querySelectorAll('.lvl-chip').forEach(chip => {
+      chip.addEventListener('click', () => setLevel(sw, chip.dataset.lvl));
+    });
+    setLevel(sw, 'b1');
+  });
+
+  // simple client-side search across titles, topics and excerpts
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    document.querySelectorAll('.day-block').forEach(block => {
+      let visibleCount = 0;
+      block.querySelectorAll('.story-card, .feed-card').forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const match = q === '' || text.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+      block.style.display = visibleCount === 0 ? 'none' : '';
+    });
+  });
+</script>
+
+</body>
+</html>

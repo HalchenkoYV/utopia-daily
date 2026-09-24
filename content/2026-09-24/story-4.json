@@ -1,0 +1,75 @@
+{
+  "status": "published",
+  "topic_category": "Technology",
+  "levels": {
+    "a1": {
+      "title": "Students Make a Robot for the Sea",
+      "excerpt": "Five students make a small robot, and it finds old nets in the sea.",
+      "body": "Mira is 16. She lives in a fishing village. She and four friends love robots.\n\nOld fishing nets are in the sea. They are bad for fish. People cannot see them.\n\nThe friends make a small robot. Its name is Nettie. Nettie swims under the water. It has a camera and lights.\n\nNettie finds the old nets. Then fishers get the nets.\n\nNow the sea is cleaner. The fishers are very happy. The school football goal has an old net!",
+      "vocab": [
+        { "word": "robot", "definition": "a machine that can move and do jobs" },
+        { "word": "village", "definition": "a very small town" },
+        { "word": "nets", "definition": "things made of string; fishers catch fish with them" },
+        { "word": "camera", "definition": "a thing for taking photos and videos" },
+        { "word": "fishers", "definition": "people who catch fish for their job" },
+        { "word": "cleaner", "definition": "more clean" }
+      ]
+    },
+    "a2": {
+      "title": "Teenagers Build a Robot That Cleans the Sea",
+      "excerpt": "Five students built an underwater robot, and it found 120 lost fishing nets in six months.",
+      "body": "Mira is 16. She lives in a small fishing village. Many old fishing nets are lost at the bottom of the sea. These nets are dangerous for fish and other animals.\n\nMira and four friends are in the school robot club. Last year, they decided to help. They built a small underwater robot and called it Nettie.\n\nNettie has a camera, strong lights and a small motor. When it sees a net, it marks the place on a map. After that, fishers go there by boat and pull the net up.\n\nIn six months, Nettie found 120 nets. The fishers pulled up four tonnes of old nets!\n\nAt first, some older fishers didn't believe in the robot. Now they often ask the students for help. And the first net? It's now in the school's football goal.",
+      "vocab": [
+        { "word": "underwater", "definition": "under the water" },
+        { "word": "dangerous", "definition": "can hurt people or animals" },
+        { "word": "motor", "definition": "the part of a machine that makes it move" },
+        { "word": "marks", "definition": "shows a place with a sign" },
+        { "word": "tonnes", "definition": "1 tonne = 1,000 kilograms" },
+        { "word": "believe", "definition": "think that something is true or good" }
+      ]
+    },
+    "b1": {
+      "title": "Teenagers Build an Underwater Robot to Find Lost Fishing Nets",
+      "excerpt": "A school robotics club in a small fishing village has built a robot that finds lost nets on the seabed — and the fishers are now its biggest fans.",
+      "body": "For years, the fishers of a small coastal village have had a hidden problem: lost nets. When storms tear them away, the nets sink to the seabed, where they keep catching fish and other sea life for years. Divers call them “ghost nets” because nobody can see them from the surface.\n\nLast autumn, five teenagers from the village school's robotics club decided to do something about it. Led by 16-year-old Mira Solen, they spent three months building a small underwater robot from spare parts, including plastic pipes, an old phone camera and a set of bright lights. They named it Nettie.\n\nNettie is about the size of a suitcase. It moves slowly along the seabed while the students watch the camera on a laptop in a boat. When they spot a net, they mark its position on a digital map. The fishers then go out and pull it up.\n\nIn six months, Nettie has found 120 nets, and the fishers have brought up almost four tonnes of old netting.\n\n“At first, the older fishers thought we were just playing with toys,” Mira says. “Now they come to the school and ask if Nettie can check their favourite spots.”\n\nThe team is already working on a second, faster robot. If it works, they will share the design with other fishing villages.\n\nThe very first net they found now hangs in the school's football goal.",
+      "vocab": [
+        { "word": "coastal", "definition": "near the sea" },
+        { "word": "seabed", "definition": "the ground at the bottom of the sea" },
+        { "word": "surface", "definition": "the top part of water" },
+        { "word": "spare", "definition": "extra; not being used" },
+        { "word": "spot", "definition": "to see or notice something" },
+        { "word": "position", "definition": "the place where something is" },
+        { "word": "netting", "definition": "material made of net" }
+      ]
+    },
+    "b2": {
+      "title": "The Robot Hunting Ghost Nets: How Five Teenagers Became Their Village's Unlikely Heroes",
+      "excerpt": "Built from plastic pipes and an old phone camera, a school-made robot has located 120 abandoned nets on the seabed — and won over some of the village's most sceptical fishers.",
+      "body": "Every fishing community has its share of stories about the one that got away. In one small coastal village, however, the problem was never the fish that escaped — it was the nets.\n\nEach winter, storms tear dozens of nets loose, and many sink to the seabed. There they become what divers call “ghost nets”: invisible from the surface, yet still catching fish, crabs and seabirds long after they have been forgotten.\n\nIt was this problem that five members of the village school's robotics club set out to solve last autumn. Led by 16-year-old Mira Solen, the team spent three months building an underwater robot from spare parts — lengths of plastic pipe, an old phone camera, a small electric motor and a set of bright diving lights. The finished machine, roughly the size of a suitcase, was christened Nettie.\n\nThe system works surprisingly well. Nettie is lowered over the side of a boat and guided slowly along the seabed while the students watch a live video feed on a laptop. Whenever a net is spotted, its position is logged on a shared digital map, and local fishers return later to haul it up.\n\nThe results have exceeded everyone's expectations. In six months, 120 nets have been located and nearly four tonnes of old netting have been removed from the water.\n\nWinning over the village's older fishers took rather longer. Mira admitted that many of them had initially dismissed the project as “a toy for the kids”. “If we'd found only one or two nets, I think they would have laughed us out of the harbour,” she said. “Now they queue up outside the school to ask if Nettie can check their favourite spots.”\n\nThe team is already building a faster second version with a longer cable and better lights. If it proves successful, they plan to publish the design so that other fishing villages can build their own robots cheaply.\n\nMeanwhile, the very first ghost net Nettie ever found has been given a new lease of life: cleaned, repaired and hung proudly in the goal of the school football pitch.",
+      "vocab": [
+        { "word": "invisible", "definition": "impossible to see" },
+        { "word": "christened", "definition": "given a name, often at a small ceremony" },
+        { "word": "feed", "definition": "a live stream of video or information" },
+        { "word": "logged", "definition": "officially recorded" },
+        { "word": "haul", "definition": "to pull something heavy with a lot of effort" },
+        { "word": "exceeded", "definition": "was greater than" },
+        { "word": "dismissed", "definition": "decided that something was not worth thinking about" }
+      ]
+    },
+    "c1": {
+      "title": "Ghost Hunters of the Seabed: The Teenage Engineers Clearing Their Village's Waters, One Net at a Time",
+      "excerpt": "Assembled from plumbing pipe, a salvaged phone camera and considerable persistence, a robot built by five school students has located 120 lost fishing nets — and quietly rewritten the relationship between a village's young and old.",
+      "body": "Ask anyone in a fishing village about loss and they will probably tell you about the weather. Storms take boats, gear and, every winter, a small fortune in nets. What they are less inclined to mention is where those nets end up. Torn loose in heavy seas, many sink to the seabed and settle there — invisible from the surface, yet still quietly trapping fish, crabs and diving seabirds for years. Divers have a name for them: ghost nets.\n\nIt was this unseen problem that five members of the local school's robotics club resolved to tackle last autumn. Led by 16-year-old Mira Solen, the group spent three months of lunch breaks and weekends assembling an underwater robot from whatever they could find: lengths of plumbing pipe, a camera salvaged from a cracked phone, a secondhand electric motor and a cluster of waterproof lights paid for with money raised at a school bake sale. The result, roughly the size of a suitcase and painted a defiant shade of yellow, was christened Nettie.\n\nIn operation, Nettie is lowered over the side of a boat on a long tether and steered along the seabed while its creators crowd around a laptop displaying a live video feed. Whenever the camera picks out the telltale mesh of a net, its coordinates are logged on a shared digital map, which local fishers consult before heading out to winch the net aboard.\n\nThe figures speak for themselves. Over six months, the team has located 120 nets, and close to four tonnes of discarded netting has been lifted from the water — a substantial haul for a village whose entire fleet numbers fewer than twenty boats.\n\nThe engineering itself was far from straightforward. Early prototypes leaked, listed alarmingly to one side or, on one memorable occasion, surfaced upside down in full view of the harbour café. Each failure was followed by a weekend of patient redesign, and the students now keep a notebook of everything that went wrong, which their physics teacher describes as “the most valuable document in the building”. Nettie's current incarnation is the ninth. “We learned more from the eight that failed than from the one that worked,” Mira says.\n\nPersuading the harbour's veterans, Mira concedes, proved considerably harder than the engineering. Many had initially written off the project as a classroom curiosity. “Had we found only a couple of nets, I suspect we'd have been politely ignored for the rest of our lives,” she says. Instead, the early results produced an unexpected reversal of roles. Fishers who had spent decades on the water now turn up at the school gates to ask whether Nettie might inspect a particular stretch of seabed, and several have begun sharing knowledge of currents and old wreck sites that the students could never have found in any textbook.\n\nThat exchange, arguably, is the project's most durable achievement. “The robot is the easy part,” Mira says. “The hard part is getting a seventy-year-old fisherman and a sixteen-year-old programmer to look at the same screen and agree on what they're seeing.”\n\nWork is already under way on a second-generation robot with a longer tether, sharper optics and a slightly less alarming colour scheme. Should it perform as hoped, the team intends to publish its designs freely, enabling other coastal communities to build their own for little more than the price of a secondhand bicycle.\n\nNot every net will end up in a recycling bin, however. The very first one Nettie ever discovered has been painstakingly cleaned, repaired and strung across the goal on the school football pitch, where, as one teacher observes, it now catches rather more attention than it ever did fish.",
+      "vocab": [
+        { "word": "inclined", "definition": "likely or willing to do something" },
+        { "word": "salvaged", "definition": "saved from something that was broken or going to be thrown away" },
+        { "word": "defiant", "definition": "boldly refusing to follow what is expected" },
+        { "word": "tether", "definition": "a rope or cable that keeps something attached to a fixed point" },
+        { "word": "telltale", "definition": "clearly showing or revealing something" },
+        { "word": "winch", "definition": "to lift or pull something using a machine with a rope and a turning drum" },
+        { "word": "durable", "definition": "able to last a long time" },
+        { "word": "painstakingly", "definition": "with great care and attention to detail" }
+      ]
+    }
+  }
+}

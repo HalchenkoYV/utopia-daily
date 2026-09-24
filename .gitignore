@@ -1,0 +1,29 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# env files (real keys never go to git)
+.env
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local editor / assistant settings
+.claude/
+
+# misc
+.DS_Store
+Thumbs.db
+desktop.ini
+npm-debug.log*
