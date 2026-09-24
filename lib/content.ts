@@ -110,6 +110,7 @@ export function toStoryView(story: Story): StoryView {
         .split(/\n\s*\n/)
         .map((p) => p.trim())
         .filter(Boolean),
+      vocab: c.vocab.filter((v) => v && typeof v.word === "string" && typeof v.definition === "string"),
       minutes: readingMinutes(c.body, lvl),
       words: countWords(c.body),
     };

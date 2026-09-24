@@ -6,6 +6,7 @@ import { formatDay } from "@/lib/dates";
 import { DEFAULT_LEVEL, IELTS_NOTE, LEVELS, levelLabel, type Level } from "@/lib/levels";
 import type { StoryView } from "@/lib/types";
 import { useSiteState } from "./SiteState";
+import StoryText from "./StoryText";
 
 type Props = {
   story: StoryView;
@@ -88,11 +89,14 @@ export default function StoryReader({ story, urlLevel }: Props) {
         </div>
       </div>
 
-      <div className="story-body" lang="en">
-        {text.paragraphs.map((p, i) => (
-          <p key={`${level}-${i}`}>{p}</p>
-        ))}
-      </div>
+      <p className="story-hint">Tip: click any word to see what it means and save it to My Words.</p>
+      <StoryText
+        paragraphs={text.paragraphs}
+        vocab={text.vocab}
+        level={level}
+        storyPath={`${story.date}/${story.n}`}
+        storyTitle={text.title}
+      />
     </article>
   );
 }

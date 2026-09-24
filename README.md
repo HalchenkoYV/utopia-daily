@@ -20,6 +20,10 @@ Open http://localhost:3000.
 - Only `published` stories appear on the site.
 - Check word counts and vocab: `npm run check-content` (or `npm run check-content -- 2026-09-24` for one day).
 
+## Database (Supabase)
+
+`supabase/schema.sql` creates all tables with Row Level Security. Paste it into Supabase → SQL Editor and run it (safe to re-run).
+
 ## Environment variables
 
 See `.env.example`. Real values go into `.env.local` (never committed) and into Vercel → Project Settings → Environment Variables.

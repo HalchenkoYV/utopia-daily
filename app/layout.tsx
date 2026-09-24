@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
+import { AccountProvider } from "@/components/Account";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { SiteStateProvider } from "@/components/SiteState";
@@ -36,12 +37,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
       <body>
         <SiteStateProvider>
-          <SiteHeader />
-          <div className="page">
-            <main>{children}</main>
-            <WordsPanel />
-          </div>
-          <SiteFooter />
+          <AccountProvider>
+            <SiteHeader />
+            <div className="page">
+              <main>{children}</main>
+              <WordsPanel />
+            </div>
+            <SiteFooter />
+          </AccountProvider>
         </SiteStateProvider>
       </body>
     </html>

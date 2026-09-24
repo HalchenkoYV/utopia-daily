@@ -42,6 +42,13 @@ export type StoryView = {
   thumb: string;
   levels: Record<
     Level,
-    { title: string; excerpt: string; paragraphs: string[]; minutes: number; words: number }
+    {
+      title: string;
+      excerpt: string;
+      paragraphs: string[];
+      vocab: VocabItem[];
+      minutes: number;
+      words: number;
+    }
   >;
 };

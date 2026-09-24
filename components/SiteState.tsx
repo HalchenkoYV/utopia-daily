@@ -4,14 +4,17 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { DEFAULT_LEVEL, isLevel, type Level } from "@/lib/levels";
 
 // Global UI state shared by the header, the feed and the My Words panel.
-// Guests keep their level in localStorage; logged-in users will use their profile (step 3).
+// Guests keep their level in localStorage; for logged-in users Account.tsx syncs it with their profile.
 
 const LEVEL_KEY = "ud-level";
 const WORDS_OPEN_KEY = "ud-words-open";
 
 type SiteState = {
   level: Level;
+  /** The reader picked a level (header buttons). */
   setLevel: (level: Level) => void;
+  /** Level loaded from somewhere else (the account profile) — not counted as a pick. */
+  applyLevel: (level: Level) => void;
   /** True once the saved level has been read from storage (always false during server render). */
   levelRestored: boolean;
   /** Increments every time the reader picks a level in the header — lets pages react to real clicks only. */
@@ -58,6 +61,11 @@ export function SiteStateProvider({ children }: { children: ReactNode }) {
     writeStorage(LEVEL_KEY, next);
   }, []);
 
+  const applyLevel = useCallback((next: Level) => {
+    setLevelState(next);
+    writeStorage(LEVEL_KEY, next);
+  }, []);
+
   const toggleWords = useCallback(() => {
     setWordsOpen((open) => {
       writeStorage(WORDS_OPEN_KEY, open ? "0" : "1");
@@ -66,7 +74,9 @@ export function SiteStateProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <SiteStateContext.Provider value={{ level, setLevel, levelRestored, levelPicks, wordsOpen, toggleWords }}>
+    <SiteStateContext.Provider
+      value={{ level, setLevel, applyLevel, levelRestored, levelPicks, wordsOpen, toggleWords }}
+    >
       {children}
     </SiteStateContext.Provider>
   );
