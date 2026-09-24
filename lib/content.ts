@@ -1,8 +1,8 @@
 // Server-only: reads story JSON files from content/YYYY-MM-DD/story-N.json.
 import fs from "node:fs";
 import path from "node:path";
-import { LEVELS, TOPICS, TOPIC_THUMB, readingMinutes, type Level } from "./levels";
-import type { DaySummary, LevelContent, Story, StoryFile, StorySummary } from "./types";
+import { LEVELS, TOPICS, TOPIC_THUMB, countWords, readingMinutes, type Level } from "./levels";
+import type { DaySummary, LevelContent, Story, StoryFile, StorySummary, StoryView } from "./types";
 
 const CONTENT_DIR = path.join(process.cwd(), "content");
 const DATE_DIR = /^\d{4}-\d{2}-\d{2}$/;
@@ -57,16 +57,26 @@ export function getPublishedStories(): Story[] {
     .sort()
     .reverse();
 
-  const stories: Story[] = [];
-  for (const date of dates) {
-    const files = fs.readdirSync(path.join(CONTENT_DIR, date));
-    const dayStories = files
-      .map((file) => readStory(date, file))
-      .filter((s): s is Story => s !== null)
-      .sort((a, b) => a.n - b.n);
-    stories.push(...dayStories);
-  }
-  return stories;
+  return dates.flatMap(getDayStories);
+}
+
+/** One published story, or null. Params come from the URL, so they are validated before touching the disk. */
+export function getStory(date: string, n: string | number): Story | null {
+  const num = String(n);
+  if (!DATE_DIR.test(date) || !/^\d{1,2}$/.test(num)) return null;
+  return readStory(date, `story-${Number(num)}.json`);
+}
+
+/** All published stories of one day, story-1 first. */
+export function getDayStories(date: string): Story[] {
+  if (!DATE_DIR.test(date)) return [];
+  const dir = path.join(CONTENT_DIR, date);
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .map((file) => readStory(date, file))
+    .filter((s): s is Story => s !== null)
+    .sort((a, b) => a.n - b.n);
 }
 
 /** Published stories grouped by day, newest first. Days with no published stories are skipped. */
@@ -85,6 +95,24 @@ export function toSummary(story: Story): StorySummary {
   for (const lvl of LEVELS as readonly Level[]) {
     const c = story.levels[lvl];
     levels[lvl] = { title: c.title, excerpt: c.excerpt, minutes: readingMinutes(c.body, lvl) };
+  }
+  return { date: story.date, n: story.n, topic: story.topic, thumb: TOPIC_THUMB[story.topic], levels };
+}
+
+export function toStoryView(story: Story): StoryView {
+  const levels = {} as StoryView["levels"];
+  for (const lvl of LEVELS as readonly Level[]) {
+    const c = story.levels[lvl];
+    levels[lvl] = {
+      title: c.title,
+      excerpt: c.excerpt,
+      paragraphs: c.body
+        .split(/\n\s*\n/)
+        .map((p) => p.trim())
+        .filter(Boolean),
+      minutes: readingMinutes(c.body, lvl),
+      words: countWords(c.body),
+    };
   }
   return { date: story.date, n: story.n, topic: story.topic, thumb: TOPIC_THUMB[story.topic], levels };
 }

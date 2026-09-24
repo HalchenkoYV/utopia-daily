@@ -12,6 +12,10 @@ const WORDS_OPEN_KEY = "ud-words-open";
 type SiteState = {
   level: Level;
   setLevel: (level: Level) => void;
+  /** True once the saved level has been read from storage (always false during server render). */
+  levelRestored: boolean;
+  /** Increments every time the reader picks a level in the header — lets pages react to real clicks only. */
+  levelPicks: number;
   wordsOpen: boolean;
   toggleWords: () => void;
 };
@@ -36,17 +40,21 @@ function writeStorage(key: string, value: string) {
 
 export function SiteStateProvider({ children }: { children: ReactNode }) {
   const [level, setLevelState] = useState<Level>(DEFAULT_LEVEL);
+  const [levelRestored, setLevelRestored] = useState(false);
+  const [levelPicks, setLevelPicks] = useState(0);
   const [wordsOpen, setWordsOpen] = useState(true);
 
   // Restore saved choices after hydration (server render always uses the defaults).
   useEffect(() => {
     const savedLevel = readStorage(LEVEL_KEY);
     if (isLevel(savedLevel)) setLevelState(savedLevel);
+    setLevelRestored(true);
     if (readStorage(WORDS_OPEN_KEY) === "0") setWordsOpen(false);
   }, []);
 
   const setLevel = useCallback((next: Level) => {
     setLevelState(next);
+    setLevelPicks((n) => n + 1);
     writeStorage(LEVEL_KEY, next);
   }, []);
 
@@ -58,7 +66,7 @@ export function SiteStateProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <SiteStateContext.Provider value={{ level, setLevel, wordsOpen, toggleWords }}>
+    <SiteStateContext.Provider value={{ level, setLevel, levelRestored, levelPicks, wordsOpen, toggleWords }}>
       {children}
     </SiteStateContext.Provider>
   );

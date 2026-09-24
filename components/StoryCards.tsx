@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import { storyHref } from "@/lib/dates";
 import { IELTS_NOTE, LEVELS, levelLabel, type Level } from "@/lib/levels";
 import type { StorySummary } from "@/lib/types";
 import { useSiteState } from "./SiteState";
@@ -18,7 +20,12 @@ export function StoryCard({ story }: { story: StorySummary }) {
       <div className={`thumb ${story.thumb}`} />
       <div className="body">
         <div className="story-topic">{story.topic}</div>
-        <h3>{text.title}</h3>
+        <h3>
+          {/* .card-link stretches over the whole card; the level chips sit above it */}
+          <Link href={storyHref(story.date, story.n, level)} className="card-link">
+            {text.title}
+          </Link>
+        </h3>
         <p className="excerpt">{text.excerpt}</p>
         <div className="lvl-switch" role="group" aria-label="Story level">
           {LEVELS.map((lvl) => (
@@ -53,7 +60,11 @@ export function FeedCard({ story }: { story: StorySummary }) {
       <div className={`thumb ${story.thumb}`} />
       <div className="body">
         <div className="topic">{story.topic}</div>
-        <h3>{text.title}</h3>
+        <h3>
+          <Link href={storyHref(story.date, story.n, level)} className="card-link">
+            {text.title}
+          </Link>
+        </h3>
         <p className="excerpt">{text.excerpt}</p>
         <div className="feed-foot">
           <span className="level-tag" data-lvl={level}>

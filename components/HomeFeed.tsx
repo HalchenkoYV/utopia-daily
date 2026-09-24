@@ -1,22 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatDay } from "@/lib/dates";
 import { LEVELS } from "@/lib/levels";
 import type { DaySummary, StorySummary } from "@/lib/types";
 import { FeedCard, StoryCard } from "./StoryCards";
 
 type Props = { days: DaySummary[]; popular: StorySummary[] };
-
-// "2026-09-24" -> "Thursday, September 24". Computed in UTC so server and browser agree.
-function formatDay(date: string): string {
-  const [y, m, d] = date.split("-").map(Number);
-  return new Intl.DateTimeFormat("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  }).format(new Date(Date.UTC(y, m - 1, d)));
-}
 
 function localDateKey(offsetDays = 0): string {
   const d = new Date();

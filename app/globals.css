@@ -334,7 +334,45 @@ main {
 .level-tag[data-lvl="c1"]::after { background: var(--lvl-c1); }
 .feed-foot .dot { opacity: 0.5; }
 
+/* Whole card is clickable: the title link's ::after covers the card; level chips stay on top. */
+.story-card, .feed-card { position: relative; transition: border-color 0.15s ease; }
+.story-card:hover, .feed-card:hover { border-color: var(--muted); }
+.card-link::after { content: ""; position: absolute; inset: 0; }
+.card-link:focus-visible { outline: none; }
+.card-link:focus-visible::after { outline: 2px solid var(--lvl-b1); outline-offset: -2px; border-radius: 12px; }
+.story-card:hover h3, .feed-card:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.story-card .lvl-switch { position: relative; z-index: 1; }
+
 .no-results { font-size: 14px; color: var(--muted); }
+
+/* ---- Story page ---- */
+.story-page { max-width: 700px; }
+.back-link { display: inline-block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 20px; }
+.back-link:hover { color: var(--ink); }
+.thumb.story-hero { height: 190px; border-radius: 12px; border-top: 5px solid var(--lvl-b1); margin-bottom: 24px; }
+.story-meta {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 12.5px; color: var(--muted); margin-bottom: 12px;
+}
+.story-meta .topic { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+.story-meta .dot { opacity: 0.5; }
+.story-page h1 { font-size: 36px; line-height: 1.16; margin-bottom: 14px; }
+.story-dek { font-size: 17px; line-height: 1.55; color: var(--ink-soft); margin: 0 0 24px; }
+.story-levels {
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 14px 0; margin-bottom: 30px;
+  border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);
+}
+.story-levels .row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.story-levels .row.small { justify-content: space-between; }
+.story-levels .label { font-size: 10.5px; font-weight: 600; color: var(--muted); letter-spacing: 0.02em; }
+.story-levels .ielts-note { font-size: 11.5px; }
+.story-levels .reading-time { font-size: 12px; color: var(--muted); }
+.lvl-switch.lg .lvl-chip { font-size: 13px; padding: 6px 12px 10px; border-radius: 7px; background: var(--card); }
+.lvl-switch.lg .lvl-chip::after { bottom: 5px; height: 3px; }
+.lvl-switch.lg .lvl-chip.active::after { left: 12%; right: 12%; height: 4px; }
+.story-body p { font-size: 18px; line-height: 1.75; margin: 0 0 1.15em; }
+.more-stories { margin-top: 64px; }
 
 footer.site-footer {
   border-top: 1px solid var(--card-border);
@@ -378,6 +416,9 @@ aside.words-panel.closed { margin-right: -352px; opacity: 0; pointer-events: non
 @media (max-width: 640px) {
   header.site-header { padding: 16px 18px; }
   main { padding: 28px 18px 60px; }
+  .story-page h1 { font-size: 28px; }
+  .thumb.story-hero { height: 140px; }
+  .story-body p { font-size: 17px; }
   .today-grid, .feed-grid { grid-template-columns: 1fr; }
 }
 

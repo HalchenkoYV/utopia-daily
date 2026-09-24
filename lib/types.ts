@@ -33,3 +33,15 @@ export type StorySummary = {
 };
 
 export type DaySummary = { date: string; stories: StorySummary[] };
+
+// Everything the story page needs in the browser to switch levels instantly.
+export type StoryView = {
+  date: string;
+  n: number;
+  topic: Topic;
+  thumb: string;
+  levels: Record<
+    Level,
+    { title: string; excerpt: string; paragraphs: string[]; minutes: number; words: number }
+  >;
+};
