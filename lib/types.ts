@@ -40,6 +40,10 @@ export type TranslateResult = {
   base_form: string;
   part_of_speech: string;
   definition: string;
+  /** Piece of the sentence around the word, e.g. "on the edge of town" (empty without a sentence). */
+  context_phrase: string;
+  /** That piece as it reads in a translation of the sentence, e.g. "на окраине города". */
+  context_translation: string;
 };
 
 export type FamilyWord = {

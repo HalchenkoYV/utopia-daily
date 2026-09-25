@@ -309,14 +309,24 @@ function WordPopover({ ref, selected, level, storyPath, storyTitle }: PopoverPro
       aria-label={`Word: ${selected.word}`}
       style={{ top: selected.top, left: selected.left, width: POPOVER_WIDTH }}
     >
-      <div className="pw">{selected.word}</div>
-      {ai && (ai.part_of_speech || baseHint) && (
-        <div className="pmeta">
-          {ai.part_of_speech}
-          {ai.part_of_speech && baseHint && " · "}
-          {baseHint && <>base form: {baseHint}</>}
+      <div className="phead">
+        <div>
+          <div className="pw">{selected.word}</div>
+          {ai && (ai.part_of_speech || baseHint) && (
+            <div className="pmeta">
+              {ai.part_of_speech}
+              {ai.part_of_speech && baseHint && " · "}
+              {baseHint && <>base form: {baseHint}</>}
+            </div>
+          )}
         </div>
-      )}
+        {ai?.context_translation && (
+          <div className="pcontext" aria-label="In this sentence">
+            {ai.context_phrase && <span className="pcontext-en">{ai.context_phrase}</span>}
+            <span className="pcontext-tr">{ai.context_translation}</span>
+          </div>
+        )}
+      </div>
 
       {loggedIn && !translateTo && (
         <div className="ptrans-block">

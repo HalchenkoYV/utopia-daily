@@ -399,6 +399,10 @@ main {
 }
 .word-popover .pw { font-family: var(--serif); font-size: 19px; font-weight: 600; }
 .word-popover .pmeta { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.word-popover .phead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.word-popover .pcontext { min-width: 0; text-align: right; font-size: 12px; line-height: 1.35; padding-top: 3px; }
+.word-popover .pcontext-en { display: block; color: var(--muted); font-style: italic; }
+.word-popover .pcontext-tr { display: block; color: var(--ink-soft); font-weight: 600; margin-top: 2px; }
 .word-popover .ptrans-block { margin-top: 8px; }
 .word-popover .ptrans { font-size: 17px; font-weight: 600; color: var(--accent); }
 .word-popover .ptrans-loading { font-size: 13px; color: var(--muted); }
