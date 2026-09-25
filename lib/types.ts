@@ -34,6 +34,21 @@ export type StorySummary = {
 
 export type DaySummary = { date: string; stories: StorySummary[] };
 
+// Answers of /api/translate and /api/word-family.
+export type TranslateResult = {
+  translation: string;
+  base_form: string;
+  part_of_speech: string;
+  definition: string;
+};
+
+export type FamilyWord = {
+  word: string;
+  part_of_speech: string;
+  translation: string;
+  definition: string;
+};
+
 // Everything the story page needs in the browser to switch levels instantly.
 export type StoryView = {
   date: string;

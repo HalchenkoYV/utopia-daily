@@ -92,6 +92,49 @@ create policy "Users delete own words" on public.saved_words
 
 grant select, insert, update, delete on public.saved_words to authenticated;
 
+-- Translations (in the reader's language), the sentence the word came from,
+-- and the word a "word family" entry was found from.
+alter table public.saved_words add column if not exists translation text;
+alter table public.saved_words add column if not exists context text;
+alter table public.saved_words add column if not exists related_to text;
+alter table public.saved_words add column if not exists updated_at timestamptz;
+alter table public.saved_words drop constraint if exists saved_words_translation_len;
+alter table public.saved_words add constraint saved_words_translation_len check (char_length(translation) <= 200);
+alter table public.saved_words drop constraint if exists saved_words_context_len;
+alter table public.saved_words add constraint saved_words_context_len check (char_length(context) <= 600);
+alter table public.saved_words drop constraint if exists saved_words_related_to_len;
+alter table public.saved_words add constraint saved_words_related_to_len check (char_length(related_to) <= 64);
+
+-- Language for translations, e.g. 'uk', 'es', 'pt-BR'.
+alter table public.profiles add column if not exists translate_to text;
+alter table public.profiles drop constraint if exists profiles_translate_to_format;
+alter table public.profiles add constraint profiles_translate_to_format check (translate_to ~ '^[a-z]{2,3}(-[A-Z]{2})?$');
+
+-- ============================================================
+-- ai_usage: one row per AI request (translation, word family, retelling),
+-- used for the daily per-user limit. Users cannot update or delete rows.
+-- ============================================================
+create table if not exists public.ai_usage (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null default auth.uid() references auth.users (id) on delete cascade,
+  kind text not null check (kind in ('translate', 'family', 'retelling')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists ai_usage_user_created_idx on public.ai_usage (user_id, created_at desc);
+
+alter table public.ai_usage enable row level security;
+
+drop policy if exists "Users read own AI usage" on public.ai_usage;
+create policy "Users read own AI usage" on public.ai_usage
+  for select to authenticated using ((select auth.uid()) = user_id);
+
+drop policy if exists "Users add own AI usage" on public.ai_usage;
+create policy "Users add own AI usage" on public.ai_usage
+  for insert to authenticated with check ((select auth.uid()) = user_id);
+
+grant select, insert on public.ai_usage to authenticated;
+
 -- ============================================================
 -- retellings: learner retellings + AI feedback (step 4)
 -- No delete policy on purpose: the daily check limit counts these rows.
