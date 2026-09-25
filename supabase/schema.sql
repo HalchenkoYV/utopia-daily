@@ -52,6 +52,9 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
+-- Only the trigger may run it — not callable through the public API.
+revoke execute on function public.handle_new_user() from public, anon, authenticated;
+
 -- ============================================================
 -- saved_words: the "My Words" list
 -- ============================================================
@@ -138,7 +141,8 @@ create policy "Anyone can record a view" on public.story_views
 
 grant insert on public.story_views to anon, authenticated;
 
--- Most viewed stories over the last N days.
+-- Most viewed stories over the last N days. Public on purpose (the Popular block);
+-- SECURITY DEFINER lets it count rows that nobody can read directly.
 create or replace function public.popular_stories(window_days integer default 7, max_results integer default 6)
 returns table (story_path text, views bigint)
 language sql
