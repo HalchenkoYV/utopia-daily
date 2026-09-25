@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { formatDay } from "@/lib/dates";
 import { DEFAULT_LEVEL, IELTS_NOTE, LEVELS, levelLabel, type Level } from "@/lib/levels";
 import type { StoryView } from "@/lib/types";
 import { useSiteState } from "./SiteState";
 import StoryText from "./StoryText";
+import { TEXT_SCALES, TextSizeButtons, useTextStep } from "./TextSize";
 
 type Props = {
   story: StoryView;
@@ -17,6 +18,7 @@ type Props = {
 export default function StoryReader({ story, urlLevel }: Props) {
   const { level: globalLevel, levelRestored, levelPicks } = useSiteState();
   const [level, setLevel] = useState<Level>(urlLevel ?? DEFAULT_LEVEL);
+  const [textStep, changeText] = useTextStep("ud-story-text");
   const seenPicks = useRef(levelPicks);
 
   // Link without ?level=: read at the reader's saved level once it's known.
@@ -80,6 +82,9 @@ export default function StoryReader({ story, urlLevel }: Props) {
               </button>
             ))}
           </div>
+          <div className="story-text-size">
+            <TextSizeButtons step={textStep} onChange={changeText} />
+          </div>
         </div>
         <div className="row small">
           <span className="ielts-note">{IELTS_NOTE[level]}</span>
@@ -89,14 +94,18 @@ export default function StoryReader({ story, urlLevel }: Props) {
         </div>
       </div>
 
-      <p className="story-hint">Tip: click any word to see what it means and save it to My Words.</p>
-      <StoryText
-        paragraphs={text.paragraphs}
-        vocab={text.vocab}
-        level={level}
-        storyPath={`${story.date}/${story.n}`}
-        storyTitle={text.title}
-      />
+      <p className="story-hint">
+        Tip: click a word — or select a few words — to see the translation and save it to My Words.
+      </p>
+      <div style={{ "--story-scale": TEXT_SCALES[textStep] } as CSSProperties}>
+        <StoryText
+          paragraphs={text.paragraphs}
+          vocab={text.vocab}
+          level={level}
+          storyPath={`${story.date}/${story.n}`}
+          storyTitle={text.title}
+        />
+      </div>
     </article>
   );
 }

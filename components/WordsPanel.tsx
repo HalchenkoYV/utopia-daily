@@ -3,13 +3,12 @@
 import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import MyWords from "./MyWords";
 import { useSiteState } from "./SiteState";
+import { TEXT_SCALES, TextSizeButtons, useTextStep } from "./TextSize";
 
 const WIDTH_KEY = "ud-panel-width";
-const TEXT_KEY = "ud-panel-text";
 const DEFAULT_WIDTH = 360;
 const MIN_WIDTH = 280;
 const MAX_WIDTH = 720;
-const TEXT_SCALES = [1, 1.1, 1.2, 1.35];
 
 function maxWidth() {
   return Math.min(MAX_WIDTH, Math.round(window.innerWidth * 0.55));
@@ -28,17 +27,15 @@ function save(key: string, value: number) {
 export default function WordsPanel() {
   const { wordsOpen } = useSiteState();
   const [width, setWidth] = useState(DEFAULT_WIDTH);
-  const [textStep, setTextStep] = useState(0);
+  const [textStep, changeText] = useTextStep("ud-panel-text");
   const widthRef = useRef(width);
   widthRef.current = width;
 
-  // Restore the reader's panel width and text size.
+  // Restore the reader's panel width.
   useEffect(() => {
     try {
       const w = Number(window.localStorage.getItem(WIDTH_KEY));
       if (w) setWidth(clampWidth(w));
-      const t = Number(window.localStorage.getItem(TEXT_KEY));
-      if (t >= 0 && t < TEXT_SCALES.length) setTextStep(t);
     } catch {}
   }, []);
 
@@ -72,12 +69,6 @@ export default function WordsPanel() {
     save(WIDTH_KEY, next);
   }
 
-  function changeText(delta: number) {
-    const next = Math.min(Math.max(textStep + delta, 0), TEXT_SCALES.length - 1);
-    setTextStep(next);
-    save(TEXT_KEY, next);
-  }
-
   return (
     <aside
       className={`words-panel${wordsOpen ? "" : " closed"}`}
@@ -106,19 +97,7 @@ export default function WordsPanel() {
           <h2>My Words</h2>
           <div className="sub">Words you marked while reading</div>
         </div>
-        <div className="text-size" role="group" aria-label="Text size">
-          <button type="button" onClick={() => changeText(-1)} disabled={textStep === 0} aria-label="Smaller text">
-            A−
-          </button>
-          <button
-            type="button"
-            onClick={() => changeText(1)}
-            disabled={textStep === TEXT_SCALES.length - 1}
-            aria-label="Bigger text"
-          >
-            A+
-          </button>
-        </div>
+        <TextSizeButtons step={textStep} onChange={changeText} />
       </div>
       <div className="panel-body" style={{ zoom: TEXT_SCALES[textStep] }}>
         <MyWords variant="panel" />

@@ -346,7 +346,8 @@ main {
 .no-results { font-size: 14px; color: var(--muted); }
 
 /* ---- Story page ---- */
-.story-page { max-width: 700px; }
+.story-page { max-width: 700px; margin: 0 auto; }
+.story-text-size { margin-left: auto; }
 .back-link { display: inline-block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 20px; }
 .back-link:hover { color: var(--ink); }
 .thumb.story-hero { height: 190px; border-radius: 12px; border-top: 5px solid var(--lvl-b1); margin-bottom: 24px; }
@@ -371,7 +372,7 @@ main {
 .lvl-switch.lg .lvl-chip { font-size: 13px; padding: 6px 12px 10px; border-radius: 7px; background: var(--card); }
 .lvl-switch.lg .lvl-chip::after { bottom: 5px; height: 3px; }
 .lvl-switch.lg .lvl-chip.active::after { left: 12%; right: 12%; height: 4px; }
-.story-body p { font-size: 18px; line-height: 1.75; margin: 0 0 1.15em; }
+.story-body p { font-size: calc(18px * var(--story-scale, 1)); line-height: 1.75; margin: 0 0 1.15em; }
 .more-stories { margin-top: 64px; }
 .story-hint { font-size: 12.5px; color: var(--muted); margin: -12px 0 22px; }
 
@@ -567,7 +568,7 @@ aside.words-panel.closed { margin-right: calc(-1 * var(--panel-w, 360px) - 2px);
   main { padding: 28px 18px 60px; }
   .story-page h1 { font-size: 28px; }
   .thumb.story-hero { height: 140px; }
-  .story-body p { font-size: 17px; }
+  .story-body p { font-size: calc(17px * var(--story-scale, 1)); }
   .today-grid, .feed-grid { grid-template-columns: 1fr; }
 }
 
