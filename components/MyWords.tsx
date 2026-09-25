@@ -17,6 +17,22 @@ function wordSourceHref(word: SavedWord): string | null {
   return `/story/${word.story_path}${word.level ? `?level=${word.level}` : ""}`;
 }
 
+/** The saved sentence with the word itself in bold. */
+function Sentence({ text, word }: { text: string; word: string }) {
+  const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/'/g, "['’]");
+  const match = new RegExp(`(^|[^\\p{L}])(${escaped})(?=[^\\p{L}]|$)`, "iu").exec(text);
+  if (!match) return <>“{text}”</>;
+  const start = match.index + match[1].length;
+  const end = start + match[2].length;
+  return (
+    <>
+      “{text.slice(0, start)}
+      <mark>{text.slice(start, end)}</mark>
+      {text.slice(end)}”
+    </>
+  );
+}
+
 /** My Words list with add / edit / word family / delete. Used by the sidebar and by /words. */
 export default function MyWords({ variant }: { variant: Variant }) {
   const { configured, ready, user, words } = useAccount();
@@ -330,13 +346,25 @@ function WordCard({ word, variant }: { word: SavedWord; variant: Variant }) {
         )
       )}
       {word.definition && <div className="def">{word.definition}</div>}
-      {variant === "page" && word.context && <div className="ctx">“{word.context}”</div>}
-      {word.related_to && <div className="rel">Word family of “{word.related_to}”</div>}
-      {href && word.story_title && (
-        <Link href={href} className="src">
-          {word.story_title}
-        </Link>
+      {word.context ? (
+        href ? (
+          <Link href={href} className="ctx" title={word.story_title ? `From “${word.story_title}”` : undefined}>
+            <Sentence text={word.context} word={word.word} />
+          </Link>
+        ) : (
+          <div className="ctx">
+            <Sentence text={word.context} word={word.word} />
+          </div>
+        )
+      ) : (
+        href &&
+        word.story_title && (
+          <Link href={href} className="src">
+            {word.story_title}
+          </Link>
+        )
       )}
+      {word.related_to && <div className="rel">Word family of “{word.related_to}”</div>}
 
       <div className="mw-actions">
         <button type="button" className="link-button" onClick={startEdit}>

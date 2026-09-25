@@ -245,7 +245,11 @@ export function AccountProvider({ children }: { children: ReactNode }) {
           body: JSON.stringify(body),
         });
         const payload = await res.json().catch(() => ({}));
-        if (!res.ok) return { error: payload.error ?? "Something went wrong. Please try again." };
+        if (!res.ok) {
+          const message = payload.error ?? "Something went wrong. Please try again.";
+          // The short code (e.g. "gemini_PERMISSION_DENIED") helps with support; it contains no secrets.
+          return { error: payload.code ? `${message} (code: ${payload.code})` : message };
+        }
         return { data: payload as T };
       } catch {
         return { error: "No connection. Please check your internet and try again." };

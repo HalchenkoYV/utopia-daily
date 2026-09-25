@@ -1,4 +1,4 @@
-import { AiError, clean, geminiJson } from "@/lib/gemini";
+import { AiError, aiErrorMessage, clean, geminiJson } from "@/lib/gemini";
 import { isLanguage, languageName } from "@/lib/languages";
 import { getRequestUser, recordUsage, underDailyLimit } from "@/lib/supabase-server";
 import type { FamilyWord } from "@/lib/types";
@@ -80,11 +80,11 @@ export async function POST(req: Request) {
       words.push(item);
       if (words.length === 8) break;
     }
-    if (!Array.isArray(raw.words)) throw new AiError("no words array");
+    if (!Array.isArray(raw.words)) throw new AiError("gemini_bad_output", "no words array");
     await recordUsage(auth.supabase, "family");
     return json({ words });
   } catch (err) {
     console.error("[word-family]", err instanceof Error ? err.message : err);
-    return json({ error: "Word families are not available right now. Please try again." }, 502);
+    return json(aiErrorMessage(err, "Word families"), 502);
   }
 }

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { LEVELS, levelLabel } from "@/lib/levels";
 import { useAccount } from "./Account";
 import { useSiteState } from "./SiteState";
@@ -10,7 +11,19 @@ export default function SiteHeader() {
   const { level, setLevel, toggleWords, wordsOpen } = useSiteState();
   const { user, words, signOut } = useAccount();
   const router = useRouter();
+  const headerRef = useRef<HTMLElement>(null);
   const wordCount = words.length;
+
+  // Publish the sticky header's height so the My Words panel can sit right below it.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const update = () => document.documentElement.style.setProperty("--header-h", `${el.offsetHeight}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   async function handleLogOut() {
     await signOut();
@@ -18,7 +31,7 @@ export default function SiteHeader() {
   }
 
   return (
-    <header className="site-header">
+    <header className="site-header" ref={headerRef}>
       <Link href="/" className="brand-block">
         <div className="logo">
           Utopia <span className="daily">Daily</span>

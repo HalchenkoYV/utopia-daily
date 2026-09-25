@@ -40,7 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AccountProvider>
             <SiteHeader />
             <div className="page">
-              <main>{children}</main>
+              <main>
+                <div className="main-inner">{children}</div>
+              </main>
               <WordsPanel />
             </div>
             <SiteFooter />

@@ -1,4 +1,4 @@
-import { AiError, clean, geminiJson } from "@/lib/gemini";
+import { AiError, aiErrorMessage, clean, geminiJson } from "@/lib/gemini";
 import { isLanguage, languageName } from "@/lib/languages";
 import { isLevel } from "@/lib/levels";
 import { getRequestUser, recordUsage, underDailyLimit } from "@/lib/supabase-server";
@@ -65,11 +65,16 @@ export async function POST(req: Request) {
       part_of_speech: clean(raw.part_of_speech, 20).toLowerCase(),
       definition: clean(raw.definition, 200),
     };
-    if (!result.translation) throw new AiError("empty translation");
+    if (!result.translation) throw new AiError("gemini_empty", "empty translation");
     await recordUsage(auth.supabase, "translate");
     return json(result);
   } catch (err) {
     console.error("[translate]", err instanceof Error ? err.message : err);
-    return json({ error: "Translation is not available right now. Please try again." }, 502);
+    return json(aiErrorMessage(err, "Translations"), 502);
   }
+}
+
+/** Health check without calling Gemini: tells whether the server has a key at all. */
+export function GET() {
+  return json({ ai: process.env.GEMINI_API_KEY?.trim() ? "configured" : "missing" });
 }
