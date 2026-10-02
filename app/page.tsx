@@ -1,12 +1,15 @@
 import HomeFeed from "@/components/HomeFeed";
-import { getDays, toDaySummary, toSummary } from "@/lib/content";
+import { getRecentDays, toDaySummary, toSummary } from "@/lib/content";
 
 const DAYS_ON_HOME = 3;
 const POPULAR_COUNT = 6;
 
-export default function HomePage() {
-  const days = getDays();
-  const recentDays = days.slice(0, DAYS_ON_HOME).map(toDaySummary);
+// New issues arrive in the database every morning; refresh the cached page every 5 minutes.
+export const revalidate = 300;
+
+export default async function HomePage() {
+  const days = await getRecentDays(DAYS_ON_HOME);
+  const recentDays = days.map(toDaySummary);
   // Until view counting exists (step 5), "Popular" falls back to the most recent stories.
   const popular = days
     .flatMap((day) => day.stories)

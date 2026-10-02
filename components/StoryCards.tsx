@@ -7,6 +7,17 @@ import { IELTS_NOTE, LEVELS, levelLabel, type Level } from "@/lib/levels";
 import type { StorySummary } from "@/lib/types";
 import { useSiteState } from "./SiteState";
 
+/** Card picture: the story's cover drawing, or the rubric's gradient while there is none. */
+function CardThumb({ story }: { story: StorySummary }) {
+  if (!story.hero) return <div className={`thumb ${story.thumb}`} />;
+  return (
+    <div className="thumb has-img">
+      {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings, no optimisation needed */}
+      <img src={story.hero.src} alt="" width={1200} height={675} loading="lazy" />
+    </div>
+  );
+}
+
 /** Big card for the newest day: has its own level switcher (reset by the global YOUR LEVEL). */
 export function StoryCard({ story }: { story: StorySummary }) {
   const { level: globalLevel } = useSiteState();
@@ -17,7 +28,7 @@ export function StoryCard({ story }: { story: StorySummary }) {
 
   return (
     <article className="story-card" style={{ borderTopColor: `var(--lvl-${level})` }}>
-      <div className={`thumb ${story.thumb}`} />
+      <CardThumb story={story} />
       <div className="body">
         <div className="story-topic">{story.topic}</div>
         <h3>
@@ -57,7 +68,7 @@ export function FeedCard({ story }: { story: StorySummary }) {
 
   return (
     <article className="feed-card">
-      <div className={`thumb ${story.thumb}`} />
+      <CardThumb story={story} />
       <div className="body">
         <div className="topic">{story.topic}</div>
         <h3>

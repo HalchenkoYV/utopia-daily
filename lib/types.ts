@@ -7,21 +7,34 @@ export type LevelContent = {
   excerpt: string;
   body: string;
   vocab: VocabItem[];
+  /** 1–2 sentences about the real world (September 2026), written at this level. */
+  reality_check: string;
 };
 
-// Shape of content/YYYY-MM-DD/story-N.json
-export type StoryFile = {
-  status: "draft" | "published";
-  topic_category: Topic;
-  levels: Record<Level, LevelContent>;
+/** An illustration stored with the story: SVG markup drawn when the story was written. */
+export type StoryImage = {
+  svg: string;
+  alt: string;
+  caption: string;
+  placement: "hero" | "inline";
+  /** Inline drawings only: where in the text they go, from 0 (top) to 1 (end). */
+  position: number;
 };
 
+/** One story as stored in the `stories` table (all six levels present). */
 export type Story = {
   date: string; // YYYY-MM-DD
-  n: number; // 1..6
+  n: number; // 1..9 = rubric number
   topic: Topic;
+  timelineDay: number;
+  dateline: string;
+  realitySource: string | null;
+  images: StoryImage[];
   levels: Record<Level, LevelContent>;
 };
+
+/** A drawing ready for the browser: served by /img/[date]/[n]/[i]. */
+export type Picture = { src: string; alt: string; caption: string; position: number };
 
 // Lightweight version sent to the browser for cards (no full text).
 export type StorySummary = {
@@ -29,6 +42,8 @@ export type StorySummary = {
   n: number;
   topic: Topic;
   thumb: string;
+  timelineDay: number;
+  hero: Picture | null;
   levels: Record<Level, { title: string; excerpt: string; minutes: number }>;
 };
 
@@ -59,6 +74,11 @@ export type StoryView = {
   n: number;
   topic: Topic;
   thumb: string;
+  timelineDay: number;
+  dateline: string;
+  realitySource: string | null;
+  hero: Picture | null;
+  figures: Picture[];
   levels: Record<
     Level,
     {
@@ -66,6 +86,7 @@ export type StoryView = {
       excerpt: string;
       paragraphs: string[];
       vocab: VocabItem[];
+      realityCheck: string;
       minutes: number;
       words: number;
     }

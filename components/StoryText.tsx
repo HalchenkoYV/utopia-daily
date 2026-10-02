@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState, type MouseEvent, type Ref } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState, type MouseEvent, type Ref } from "react";
 import { createPortal } from "react-dom";
 import type { Level } from "@/lib/levels";
-import type { TranslateResult, VocabItem } from "@/lib/types";
+import type { Picture, TranslateResult, VocabItem } from "@/lib/types";
 import { normalizeWord, useAccount } from "./Account";
 import LanguageSelect from "./LanguageSelect";
 
@@ -12,8 +12,10 @@ type Props = {
   paragraphs: string[];
   vocab: VocabItem[];
   level: Level;
-  storyPath: string; // "2026-09-24/1"
+  storyPath: string; // "2026-09-28/1"
   storyTitle: string;
+  /** Drawings placed between paragraphs (by their position, 0..1). */
+  figures?: Picture[];
 };
 
 type VocabEntry = { word: string; definition: string; parts: string[] };
@@ -74,7 +76,18 @@ function popoverPosition(rect: DOMRect) {
   return { top: rect.bottom + window.scrollY + 8, left: Math.max(left, 12) + window.scrollX };
 }
 
-export default function StoryText({ paragraphs, vocab, level, storyPath, storyTitle }: Props) {
+/** Paragraph index after which each drawing goes: spread through the text, never before the first paragraph. */
+function figureSlots(figures: Picture[], count: number): Map<number, Picture[]> {
+  const slots = new Map<number, Picture[]>();
+  if (count < 2) return slots;
+  for (const fig of figures) {
+    const after = Math.min(Math.max(Math.round(fig.position * count) - 1, 0), count - 2);
+    slots.set(after, [...(slots.get(after) ?? []), fig]);
+  }
+  return slots;
+}
+
+export default function StoryText({ paragraphs, vocab, level, storyPath, storyTitle, figures = [] }: Props) {
   const [selected, setSelected] = useState<Selected | null>(null);
   const popoverRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -84,6 +97,7 @@ export default function StoryText({ paragraphs, vocab, level, storyPath, storyTi
     [vocab],
   );
   const parsed = useMemo(() => paragraphs.map((p) => tokenize(p, entries)), [paragraphs, entries]);
+  const slots = useMemo(() => figureSlots(figures, paragraphs.length), [figures, paragraphs.length]);
 
   // Close on level change, Escape, resize or a click outside the popover.
   useEffect(() => setSelected(null), [level]);
@@ -200,24 +214,33 @@ export default function StoryText({ paragraphs, vocab, level, storyPath, storyTi
         }}
       >
         {parsed.map((tokens, pi) => (
-          <p key={`${level}-${pi}`}>
-            {tokens.map((tok, ti) =>
-              tok.key ? (
-                <span
-                  key={ti}
-                  className={`w${tok.vocab ? " vocab" : ""}${
-                    selected?.paragraph === pi && selected.token === ti ? " selected" : ""
-                  }`}
-                  data-p={pi}
-                  data-t={ti}
-                >
-                  {tok.text}
-                </span>
-              ) : (
-                tok.text
-              ),
-            )}
-          </p>
+          <Fragment key={`${level}-${pi}`}>
+            <p>
+              {tokens.map((tok, ti) =>
+                tok.key ? (
+                  <span
+                    key={ti}
+                    className={`w${tok.vocab ? " vocab" : ""}${
+                      selected?.paragraph === pi && selected.token === ti ? " selected" : ""
+                    }`}
+                    data-p={pi}
+                    data-t={ti}
+                  >
+                    {tok.text}
+                  </span>
+                ) : (
+                  tok.text
+                ),
+              )}
+            </p>
+            {slots.get(pi)?.map((fig) => (
+              <figure className="story-figure" key={fig.src}>
+                {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings, no optimisation needed */}
+                <img src={fig.src} alt={fig.alt} width={1200} height={675} loading="lazy" />
+                {fig.caption && <figcaption>{fig.caption}</figcaption>}
+              </figure>
+            ))}
+          </Fragment>
         ))}
       </div>
       {selected &&

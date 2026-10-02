@@ -11,6 +11,8 @@ type Props = {
   searchParams: Promise<{ level?: string | string[] }>;
 };
 
+export const revalidate = 300;
+
 function pickLevel(raw: string | string[] | undefined): Level | null {
   const value = Array.isArray(raw) ? raw[0] : raw;
   return isLevel(value) ? value : null;
@@ -18,7 +20,7 @@ function pickLevel(raw: string | string[] | undefined): Level | null {
 
 export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { date, n } = await params;
-  const story = getStory(date, n);
+  const story = await getStory(date, n);
   if (!story) return { title: "Story not found — Utopia Daily" };
   const level = pickLevel((await searchParams).level) ?? DEFAULT_LEVEL;
   const text = story.levels[level];
@@ -27,13 +29,11 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
 
 export default async function StoryPage({ params, searchParams }: Props) {
   const { date, n } = await params;
-  const story = getStory(date, n);
+  const story = await getStory(date, n);
   if (!story) notFound();
 
   const urlLevel = pickLevel((await searchParams).level);
-  const moreFromDay = getDayStories(date)
-    .filter((s) => s.n !== story.n)
-    .map(toSummary);
+  const moreFromDay = (await getDayStories(date)).filter((s) => s.n !== story.n).map(toSummary);
 
   return (
     <>

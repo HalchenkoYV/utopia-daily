@@ -19,6 +19,9 @@
   --lvl-b1-ink: #FFFFFF;
   --lvl-b2-ink: #FFFFFF;
   --lvl-c1-ink: #FFFFFF;
+  /* Native: the original text every level is made from — amber, set apart from the blue scale */
+  --lvl-native: #C08A1E;
+  --lvl-native-ink: #FFFFFF;
 
   /* brand accent ("Daily" in the logo, word sources) */
   --accent: var(--lvl-c1);
@@ -113,6 +116,7 @@ nav.levels button[data-lvl="a2"]::after { background: var(--lvl-a2); }
 nav.levels button[data-lvl="b1"]::after { background: var(--lvl-b1); }
 nav.levels button[data-lvl="b2"]::after { background: var(--lvl-b2); }
 nav.levels button[data-lvl="c1"]::after { background: var(--lvl-c1); }
+nav.levels button[data-lvl="native"]::after { background: var(--lvl-native); }
 nav.levels button.active { border-color: var(--ink); color: var(--ink); }
 nav.levels button.active::after { left: 12%; right: 12%; height: 4px; }
 
@@ -231,6 +235,12 @@ main {
 .thumb.community { background: radial-gradient(circle at 30% 30%, #A9C6E4, transparent 60%), radial-gradient(circle at 75% 70%, #33578A, transparent 55%), #CBDCEC; }
 .thumb.culture { background: radial-gradient(circle at 30% 30%, #E3B7C7, transparent 60%), radial-gradient(circle at 75% 70%, #A85C7A, transparent 55%), #EAD4DD; }
 .thumb.food { background: radial-gradient(circle at 30% 30%, #F1C79C, transparent 60%), radial-gradient(circle at 75% 70%, #C9773B, transparent 55%), #F3DEC4; }
+.thumb.politics { background: radial-gradient(circle at 30% 30%, #C5CDEB, transparent 60%), radial-gradient(circle at 75% 70%, #5A5F9C, transparent 55%), #DADDF0; }
+.thumb.health { background: radial-gradient(circle at 30% 25%, #A9DCD3, transparent 60%), radial-gradient(circle at 75% 72%, #2F8577, transparent 55%), #CFE8E3; }
+.thumb.mind { background: radial-gradient(circle at 30% 30%, #D6C8EE, transparent 60%), radial-gradient(circle at 75% 70%, #7A5BA8, transparent 55%), #E4DCF3; }
+.thumb.society { background: radial-gradient(circle at 30% 30%, #A9C6E4, transparent 60%), radial-gradient(circle at 75% 70%, #33578A, transparent 55%), #CBDCEC; }
+.thumb.planet { background: radial-gradient(circle at 25% 22%, #F4D48A, transparent 55%), radial-gradient(circle at 75% 72%, #4F8A6A, transparent 55%), #D2E2C8; }
+.thumb.economy { background: radial-gradient(circle at 30% 25%, #F4D48A, transparent 60%), radial-gradient(circle at 75% 75%, #B9862F, transparent 55%), #F0E3C0; }
 .thumb.tech { background: radial-gradient(circle at 30% 30%, #B9C6E8, transparent 60%), radial-gradient(circle at 75% 70%, #4E5D9A, transparent 55%), #D6DCEF; }
 
 /* ---- Today's stories ---- */
@@ -284,6 +294,7 @@ main {
 .lvl-chip[data-lvl="b1"]::after { background: var(--lvl-b1); }
 .lvl-chip[data-lvl="b2"]::after { background: var(--lvl-b2); }
 .lvl-chip[data-lvl="c1"]::after { background: var(--lvl-c1); }
+.lvl-chip[data-lvl="native"]::after { background: var(--lvl-native); }
 .lvl-chip.active { border-color: var(--ink); color: var(--ink); }
 .lvl-chip.active::after { left: 10%; right: 10%; height: 3.5px; }
 .ielts-note { font-size: 10.5px; color: var(--muted); }
@@ -332,6 +343,7 @@ main {
 .level-tag[data-lvl="b1"]::after { background: var(--lvl-b1); }
 .level-tag[data-lvl="b2"]::after { background: var(--lvl-b2); }
 .level-tag[data-lvl="c1"]::after { background: var(--lvl-c1); }
+.level-tag[data-lvl="native"]::after { background: var(--lvl-native); }
 .feed-foot .dot { opacity: 0.5; }
 
 /* Whole card is clickable: the title link's ::after covers the card; level chips stay on top. */
@@ -552,6 +564,36 @@ aside.words-panel.closed { margin-right: calc(-1 * var(--panel-w, 360px) - 2px);
 .simple-page { max-width: 460px; }
 .simple-page h1 { font-size: 30px; margin-bottom: 12px; }
 .simple-page p { font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 22px; }
+
+/* ---- Drawings (SVG illustrations stored with each story) ---- */
+.thumb.has-img { background: var(--card-border); }
+.thumb.has-img::after { display: none; }
+.thumb.has-img img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.story-hero-figure {
+  margin: 0 0 24px;
+  border-top: 5px solid var(--lvl-b1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card);
+}
+.story-hero-figure img, .story-figure img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+.story-hero-figure figcaption { font-size: 12.5px; line-height: 1.45; color: var(--muted); padding: 8px 12px 10px; }
+.story-figure { margin: 4px 0 30px; }
+.story-figure img { border-radius: 10px; background: var(--card); }
+.story-figure figcaption { font-size: 12.5px; line-height: 1.45; color: var(--muted); padding-top: 8px; }
+.story-meta .timeline { font-weight: 600; color: var(--accent); }
+
+/* ---- Reality check: what is true in our real world ---- */
+.reality-check {
+  margin: 4px 0 44px;
+  padding: 16px 18px;
+  background: var(--card);
+  border: 1px dashed var(--muted);
+  border-radius: 10px;
+}
+.reality-check .rc-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.reality-check p { margin: 6px 0 0; font-size: calc(15.5px * var(--story-scale, 1)); line-height: 1.55; color: var(--ink); }
+.reality-check .rc-source { font-size: 12.5px; color: var(--muted); }
 
 @media (max-width: 980px) {
   .page { flex-direction: column; }

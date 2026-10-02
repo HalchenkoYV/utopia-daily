@@ -52,10 +52,26 @@ export default function StoryReader({ story, urlLevel }: Props) {
         ← All stories
       </Link>
 
-      <div className={`thumb story-hero ${story.thumb}`} style={{ borderTopColor: `var(--lvl-${level})` }} />
+      {story.hero ? (
+        <figure className="story-hero-figure" style={{ borderTopColor: `var(--lvl-${level})` }}>
+          {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings, no optimisation needed */}
+          <img src={story.hero.src} alt={story.hero.alt} width={1200} height={675} />
+          {story.hero.caption && <figcaption>{story.hero.caption}</figcaption>}
+        </figure>
+      ) : (
+        <div className={`thumb story-hero ${story.thumb}`} style={{ borderTopColor: `var(--lvl-${level})` }} />
+      )}
 
       <div className="story-meta">
         <span className="topic">{story.topic}</span>
+        <span className="dot">·</span>
+        <span className="timeline">Utopia Timeline · Day {story.timelineDay}</span>
+        {story.dateline && (
+          <>
+            <span className="dot">·</span>
+            <span>{story.dateline}</span>
+          </>
+        )}
         <span className="dot">·</span>
         <span>{formatDay(story.date)}</span>
       </div>
@@ -104,8 +120,17 @@ export default function StoryReader({ story, urlLevel }: Props) {
           level={level}
           storyPath={`${story.date}/${story.n}`}
           storyTitle={text.title}
+          figures={story.figures}
         />
       </div>
+
+      {text.realityCheck && (
+        <aside className="reality-check" aria-label="Reality check">
+          <div className="rc-label">Reality check</div>
+          <p>{text.realityCheck}</p>
+          {story.realitySource && <p className="rc-source">Source: {story.realitySource}</p>}
+        </aside>
+      )}
     </article>
   );
 }

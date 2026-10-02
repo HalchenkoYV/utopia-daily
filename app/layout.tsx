@@ -23,7 +23,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Utopia Daily — good news for English learners",
   description:
-    "Uplifting, openly fictional news stories in five English levels (A1–C1). Read at your level, save new words and practise retelling.",
+    "Openly fictional good news from the Utopia Timeline, a world that slowly gets better. Every story in six English levels (A1–C1 and Native). Read at your level, save new words and practise retelling.",
 };
 
 export const viewport: Viewport = {

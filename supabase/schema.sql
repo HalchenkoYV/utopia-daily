@@ -38,7 +38,7 @@ as $$
 declare
   start_level text := coalesce(new.raw_user_meta_data ->> 'level', 'b1');
 begin
-  if start_level not in ('a1', 'a2', 'b1', 'b2', 'c1') then
+  if start_level not in ('a1', 'a2', 'b1', 'b2', 'c1', 'native') then
     start_level := 'b1';
   end if;
   insert into public.profiles (id, level) values (new.id, start_level)
@@ -203,3 +203,69 @@ $$;
 
 revoke all on function public.popular_stories(integer, integer) from public;
 grant execute on function public.popular_stories(integer, integer) to anon, authenticated;
+
+-- ============================================================
+-- Utopia Timeline (since 1 October 2026): stories and the world's memory
+-- live in the database. Applied as migration "utopia_timeline_content".
+-- ============================================================
+create table if not exists public.stories (
+  date date not null,
+  n smallint not null check (n between 1 and 20),
+  status text not null default 'draft' check (status in ('draft', 'published')),
+  timeline_day integer not null check (timeline_day >= 1),
+  rubric text not null check (rubric in ('Politics & Peace', 'Health', 'Mind', 'Society', 'Food & Land', 'Planet & Energy', 'Technology & AI', 'Economy & Work', 'Culture & Sport')),
+  dateline text not null default '',
+  format text not null default 'news',
+  lead_type text,
+  threads text[] not null default '{}',
+  entities text[] not null default '{}',
+  links text[] not null default '{}',
+  reality_source text,
+  levels jsonb not null default '{}'::jsonb,
+  images jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (date, n)
+);
+create index if not exists stories_date_idx on public.stories (date desc, n);
+alter table public.stories enable row level security;
+drop policy if exists "Published stories are public" on public.stories;
+create policy "Published stories are public" on public.stories
+  for select to anon, authenticated using (status = 'published');
+revoke insert, update, delete, truncate on public.stories from anon, authenticated;
+grant select on public.stories to anon, authenticated;
+
+-- Private world memory (no API access; written by the scheduled task through SQL).
+create table if not exists public.world_docs (path text primary key, content text not null, updated_at timestamptz not null default now());
+create table if not exists public.world_docs_history (id bigserial primary key, path text not null, content text not null, saved_at timestamptz not null default now());
+create table if not exists public.world_chronicle (
+  id bigserial primary key, date date not null, day integer not null, n smallint not null,
+  rubric text not null, headline text not null, facts text not null, threads text[] not null default '{}',
+  created_at timestamptz not null default now(), unique (date, n)
+);
+create table if not exists public.world_entities (
+  name text primary key,
+  kind text not null check (kind in ('company', 'organization', 'place', 'person', 'law', 'program', 'technology', 'event', 'other')),
+  rubric text, stands_for text, fictional boolean not null default true,
+  first_day integer, first_ref text, summary text not null default '', last_day integer,
+  updated_at timestamptz not null default now()
+);
+create table if not exists public.world_metrics (
+  key text primary key, label text not null, rubric text, baseline text not null, baseline_source text not null,
+  current_value text not null, last_change_day integer, speed_limit text not null, sort smallint not null default 0,
+  updated_at timestamptz not null default now()
+);
+alter table public.world_docs enable row level security;
+alter table public.world_docs_history enable row level security;
+alter table public.world_chronicle enable row level security;
+alter table public.world_entities enable row level security;
+alter table public.world_metrics enable row level security;
+
+-- Native level for profiles, saved words and retellings.
+alter table public.profiles drop constraint if exists profiles_level_check;
+alter table public.profiles add constraint profiles_level_check check (level in ('a1', 'a2', 'b1', 'b2', 'c1', 'native'));
+alter table public.saved_words drop constraint if exists saved_words_level_check;
+alter table public.saved_words add constraint saved_words_level_check check (level in ('a1', 'a2', 'b1', 'b2', 'c1', 'native'));
+alter table public.retellings drop constraint if exists retellings_level_check;
+alter table public.retellings add constraint retellings_level_check check (level in ('a1', 'a2', 'b1', 'b2', 'c1', 'native'));
+-- (The full migration also adds history/updated_at triggers and public.check_issue(date).)

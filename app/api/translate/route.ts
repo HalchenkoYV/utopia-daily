@@ -1,6 +1,6 @@
 import { AiError, aiErrorMessage, clean, geminiJson } from "@/lib/gemini";
 import { isLanguage, languageName } from "@/lib/languages";
-import { isLevel } from "@/lib/levels";
+import { isLevel, levelForPrompt } from "@/lib/levels";
 import { getRequestUser, recordUsage, underDailyLimit } from "@/lib/supabase-server";
 import type { TranslateResult } from "@/lib/types";
 
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
     `- translation: the ${language} translation of this meaning, 1–4 words, natural, no explanations or quotes.`,
     `- base_form: the dictionary form of the English word or phrase (e.g. "noticed" → "notice", "bees" → "bee").`,
     "- part_of_speech: one of noun, verb, adjective, adverb, phrase, preposition, pronoun, conjunction, other.",
-    `- definition: a very short, simple English explanation of this meaning (max 12 words) for a learner at CEFR level ${level.toUpperCase()}.`,
+    `- definition: a very short, simple English explanation of this meaning (max 12 words) for a learner at CEFR level ${levelForPrompt(level)}.`,
     sentence
       ? `- context_phrase: the short piece of the sentence (2–6 words) that contains "${text}" and shows how it is used, copied exactly from the sentence (e.g. "on the edge of town").`
       : '- context_phrase: "" (empty string).',
