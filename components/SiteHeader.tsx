@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { LEVELS, levelLabel } from "@/lib/levels";
 import { useAccount } from "./Account";
+import BranchBadge from "./BranchBadge";
 import { useSiteState } from "./SiteState";
 
 export default function SiteHeader() {
@@ -32,14 +33,17 @@ export default function SiteHeader() {
 
   return (
     <header className="site-header" ref={headerRef}>
-      <Link href="/" className="brand-block">
-        <div className="logo">
-          Utopia <span className="daily">Daily</span>
-        </div>
-        <div className="brand-tagline">
-          real fake news <span className="dim">· powered by ai</span>
-        </div>
-      </Link>
+      <div className="brand-row">
+        <Link href="/" className="brand-block">
+          <div className="logo">
+            Utopia <span className="daily">Daily</span>
+          </div>
+          <div className="brand-tagline">
+            real fake news <span className="dim">· powered by ai</span>
+          </div>
+        </Link>
+        <BranchBadge />
+      </div>
 
       <div className="level-select">
         <span className="label" id="your-level-label">
@@ -62,6 +66,9 @@ export default function SiteHeader() {
       </div>
 
       <div className="header-actions">
+        <Link href="/about" className="nav-link">
+          About us
+        </Link>
         <button type="button" className="words-toggle" onClick={toggleWords} aria-expanded={wordsOpen}>
           My Words {wordCount > 0 && <span className="count">{wordCount}</span>}
         </button>
