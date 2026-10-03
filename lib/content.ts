@@ -61,6 +61,14 @@ function asLevelContent(value: unknown): LevelContent | null {
   };
 }
 
+/** Only photos from our own public Supabase bucket are shown. */
+function asPhotoUrl(value: unknown): string | undefined {
+  const base = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (typeof value !== "string" || !base) return undefined;
+  const prefix = `${base.replace(/\/$/, "")}/storage/v1/object/public/photos/`;
+  return value.startsWith(prefix) && /^[\w\-./:]+\.(jpg|jpeg|png|webp)$/i.test(value) ? value : undefined;
+}
+
 function asImages(value: unknown): StoryImage[] {
   if (!Array.isArray(value)) return [];
   const images: StoryImage[] = [];
@@ -73,6 +81,7 @@ function asImages(value: unknown): StoryImage[] {
       caption: typeof img.caption === "string" ? img.caption : "",
       placement: img.placement === "inline" || (img.placement !== "hero" && i > 0) ? "inline" : "hero",
       position: typeof img.position === "number" ? Math.min(Math.max(img.position, 0), 1) : 0.5,
+      photo: asPhotoUrl(img.photo),
     });
   });
   return images;
@@ -184,10 +193,11 @@ function pictures(story: Story): { hero: Picture | null; figures: Picture[] } {
   const all = story.images.map((img, i) => ({
     img,
     picture: {
-      src: `/img/${story.date}/${story.n}/${i}.svg`,
+      src: img.photo ?? `/img/${story.date}/${story.n}/${i}.svg`,
       alt: img.alt,
       caption: img.caption,
       position: img.position,
+      ...(img.photo ? { ai: true } : {}),
     } satisfies Picture,
   }));
   const heroEntry = all.find((x) => x.img.placement === "hero") ?? all[0];

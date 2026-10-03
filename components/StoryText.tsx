@@ -235,8 +235,11 @@ export default function StoryText({ paragraphs, vocab, level, storyPath, storyTi
             </p>
             {slots.get(pi)?.map((fig) => (
               <figure className="story-figure" key={fig.src}>
-                {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings, no optimisation needed */}
-                <img src={fig.src} alt={fig.alt} width={1200} height={675} loading="lazy" />
+                <div className="pic">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings and ready-sized photos, no optimisation needed */}
+                  <img src={fig.src} alt={fig.alt} width={1200} height={675} loading="lazy" />
+                  {fig.ai && <span className="ai-badge">AI image</span>}
+                </div>
                 {fig.caption && <figcaption>{fig.caption}</figcaption>}
               </figure>
             ))}

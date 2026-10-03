@@ -708,3 +708,14 @@ aside.words-panel.closed { margin-right: calc(-1 * var(--panel-w, 360px) - 2px);
   }
 }
 :root[data-theme="dark"] { --bg: #14201F; --ink: #EDEFE8; --ink-soft: #B9C4BE; --muted: #8A9793; --card: #1B2827; --card-border: #2C3937; --accent: var(--lvl-b1); }
+
+/* AI photos: always labelled, so a photo of the Utopia Timeline is never mistaken for a real one. */
+.pic { position: relative; }
+.ai-badge {
+  position: absolute; right: 8px; bottom: 8px; z-index: 1;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.02em; line-height: 1;
+  padding: 4px 8px; border-radius: 99px;
+  background: rgba(28, 43, 51, 0.66); color: #fff;
+  pointer-events: none;
+}
+.story-figure .pic img { border-radius: 10px; }

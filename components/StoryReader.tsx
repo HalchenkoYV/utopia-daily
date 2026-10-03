@@ -54,8 +54,11 @@ export default function StoryReader({ story, urlLevel }: Props) {
 
       {story.hero ? (
         <figure className="story-hero-figure" style={{ borderTopColor: `var(--lvl-${level})` }}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings, no optimisation needed */}
-          <img src={story.hero.src} alt={story.hero.alt} width={1200} height={675} />
+          <div className="pic">
+            {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings and ready-sized photos, no optimisation needed */}
+            <img src={story.hero.src} alt={story.hero.alt} width={1200} height={675} />
+            {story.hero.ai && <span className="ai-badge">AI image</span>}
+          </div>
           {story.hero.caption && <figcaption>{story.hero.caption}</figcaption>}
         </figure>
       ) : (

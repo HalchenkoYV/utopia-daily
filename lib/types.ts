@@ -19,6 +19,8 @@ export type StoryImage = {
   placement: "hero" | "inline";
   /** Inline drawings only: where in the text they go, from 0 (top) to 1 (end). */
   position: number;
+  /** AI-generated photo made from this drawing (public URL in the Supabase "photos" bucket), if any. */
+  photo?: string;
 };
 
 /** One story as stored in the `stories` table (all six levels present). */
@@ -33,8 +35,8 @@ export type Story = {
   levels: Record<Level, LevelContent>;
 };
 
-/** A drawing ready for the browser: served by /img/[date]/[n]/[i]. */
-export type Picture = { src: string; alt: string; caption: string; position: number };
+/** A picture ready for the browser: a drawing served by /img/[date]/[n]/[i], or an AI photo. */
+export type Picture = { src: string; alt: string; caption: string; position: number; ai?: boolean };
 
 // Lightweight version sent to the browser for cards (no full text).
 export type StorySummary = {

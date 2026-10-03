@@ -7,13 +7,14 @@ import { IELTS_NOTE, LEVELS, levelLabel, type Level } from "@/lib/levels";
 import type { StorySummary } from "@/lib/types";
 import { useSiteState } from "./SiteState";
 
-/** Card picture: the story's cover drawing, or the rubric's gradient while there is none. */
+/** Card picture: the story's cover photo or drawing, or the rubric's gradient while there is none. */
 function CardThumb({ story }: { story: StorySummary }) {
   if (!story.hero) return <div className={`thumb ${story.thumb}`} />;
   return (
     <div className="thumb has-img">
-      {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings, no optimisation needed */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- SVG drawings and ready-sized photos, no optimisation needed */}
       <img src={story.hero.src} alt="" width={1200} height={675} loading="lazy" />
+      {story.hero.ai && <span className="ai-badge">AI image</span>}
     </div>
   );
 }
