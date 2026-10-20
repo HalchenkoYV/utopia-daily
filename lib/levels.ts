@@ -41,14 +41,14 @@ export const TOPICS = [
 ] as const;
 export type Topic = (typeof TOPICS)[number];
 
-// The six rubrics of each daily issue since 20 October 2026, in story order (story 1 = Politics & Peace).
+// The six rubrics of each daily issue since 20 October 2026, in story order (story numbers 1, 2, 4, 5, 6, 7 keep the old rubric numbers).
 export const CURRENT_TOPICS: readonly Topic[] = [
   "Politics & Peace",
-  "Society",
-  "Technology & AI",
-  "Planet & Energy",
-  "Food & Land",
   "Health",
+  "Society",
+  "Food & Land",
+  "Planet & Energy",
+  "Technology & AI",
 ];
 
 export function isTopic(value: unknown): value is Topic {
