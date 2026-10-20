@@ -27,7 +27,7 @@ export function levelForPrompt(level: Level): string {
   return level === "native" ? "C2 (native-like)" : level.toUpperCase();
 }
 
-// Rubrics of the Utopia Timeline. The order is the story number in a day (story 1 = Politics & Peace).
+// Every rubric that has ever appeared in the Utopia Timeline (older issues used all nine).
 export const TOPICS = [
   "Politics & Peace",
   "Health",
@@ -40,6 +40,16 @@ export const TOPICS = [
   "Culture & Sport",
 ] as const;
 export type Topic = (typeof TOPICS)[number];
+
+// The six rubrics of each daily issue since 20 October 2026, in story order (story 1 = Politics & Peace).
+export const CURRENT_TOPICS: readonly Topic[] = [
+  "Politics & Peace",
+  "Society",
+  "Technology & AI",
+  "Planet & Energy",
+  "Food & Land",
+  "Health",
+];
 
 export function isTopic(value: unknown): value is Topic {
   return typeof value === "string" && (TOPICS as readonly string[]).includes(value);

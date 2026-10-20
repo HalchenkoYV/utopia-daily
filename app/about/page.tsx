@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { IELTS_NOTE, LEVELS, TOPICS, TOPIC_THUMB, levelLabel, type Topic } from "@/lib/levels";
+import { CURRENT_TOPICS, IELTS_NOTE, LEVELS, TOPIC_THUMB, levelLabel, type Topic } from "@/lib/levels";
 
 export const metadata: Metadata = {
   title: "About us — Utopia Daily",
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     "Utopia Daily is a newspaper from an alternative world branch that splits from ours on 28 September 2026 and slowly, realistically gets better — written for English learners.",
 };
 
-const RUBRIC_NOTES: Record<Topic, string> = {
+const RUBRIC_NOTES: Partial<Record<Topic, string>> = {
   "Politics & Peace": "Governance, democracy, diplomacy — and how wars end: ceasefires, talks, peace deals, demining, rebuilding, justice.",
   Health: "Medical science, health systems, infections and antibiotics, access to medicines, health workers.",
   Mind: "Mental health as a public issue, loneliness, attention and technology, trust, meaning.",
@@ -147,13 +147,13 @@ export default function AboutPage() {
       </section>
 
       <section className="about-section">
-        <h2>Nine stories a day, one connected world</h2>
+        <h2>Six stories a day, one connected world</h2>
         <p>
-          Every morning brings one story from each of nine rubrics. They are parts of one world, not nine separate
+          Every morning brings one story from each of six rubrics. They are parts of one world, not six separate
           papers: a ceasefire changes energy prices, which changes food prices, which changes how people live.
         </p>
         <ol className="rubric-list">
-          {TOPICS.map((topic) => (
+          {CURRENT_TOPICS.map((topic) => (
             <li key={topic}>
               <span className={`rubric-dot thumb ${TOPIC_THUMB[topic]}`} aria-hidden="true" />
               <div>

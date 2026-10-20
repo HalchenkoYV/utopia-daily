@@ -1,6 +1,6 @@
 # Utopia Daily
 
-Good-news reading site for English learners: openly fictional stories from the **Utopia Timeline** — our real world until 27 September 2026, then a branch that slowly gets better. Nine stories a day (one per rubric), each in six levels (A1–C1 and Native).
+Good-news reading site for English learners: openly fictional stories from the **Utopia Timeline** — our real world until 27 September 2026, then a branch that slowly gets better. Six stories a day (one per rubric; the first issues had nine), each in six levels (A1–C1 and Native).
 
 - Project brief: [PROJECT_BRIEF.md](PROJECT_BRIEF.md) · design reference: [mockup.html](mockup.html) · how stories are made: [article-prompt.md](article-prompt.md)
 - Stack: Next.js (App Router, TypeScript) on Vercel; stories live in the Supabase table `stories`.
