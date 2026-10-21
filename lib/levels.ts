@@ -27,29 +27,17 @@ export function levelForPrompt(level: Level): string {
   return level === "native" ? "C2 (native-like)" : level.toUpperCase();
 }
 
-// Every rubric that has ever appeared in the Utopia Timeline (older issues used all nine).
+// The six rubrics of the Utopia Timeline, in story order.
+// Story numbers in the database are 1, 2, 4, 5, 6, 7 (see the `n` column).
 export const TOPICS = [
   "Politics & Peace",
   "Health",
-  "Mind",
   "Society",
   "Food & Land",
   "Planet & Energy",
   "Technology & AI",
-  "Economy & Work",
-  "Culture & Sport",
 ] as const;
 export type Topic = (typeof TOPICS)[number];
-
-// The six rubrics of each daily issue since 20 October 2026, in story order (story numbers 1, 2, 4, 5, 6, 7 keep the old rubric numbers).
-export const CURRENT_TOPICS: readonly Topic[] = [
-  "Politics & Peace",
-  "Health",
-  "Society",
-  "Food & Land",
-  "Planet & Energy",
-  "Technology & AI",
-];
 
 export function isTopic(value: unknown): value is Topic {
   return typeof value === "string" && (TOPICS as readonly string[]).includes(value);
@@ -59,13 +47,10 @@ export function isTopic(value: unknown): value is Topic {
 export const TOPIC_THUMB: Record<Topic, string> = {
   "Politics & Peace": "politics",
   Health: "health",
-  Mind: "mind",
   Society: "society",
   "Food & Land": "food",
   "Planet & Energy": "planet",
   "Technology & AI": "tech",
-  "Economy & Work": "economy",
-  "Culture & Sport": "culture",
 };
 
 // Learners read slower than native speakers; tuned so that

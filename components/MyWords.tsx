@@ -11,7 +11,7 @@ const PANEL_LIMIT = 20;
 
 type Variant = "panel" | "page";
 
-/** "2026-09-24/1" + level → "/story/2026-09-24/1?level=b1" */
+/** "2026-10-20/1" + level → "/story/2026-10-20/1?level=b1" */
 function wordSourceHref(word: SavedWord): string | null {
   if (!word.story_path) return null;
   return `/story/${word.story_path}${word.level ? `?level=${word.level}` : ""}`;

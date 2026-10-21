@@ -1,4 +1,4 @@
-// Story drawings: /img/2026-09-28/1/0.svg → the cleaned SVG of drawing 0 (the cover) of story 1.
+// Story drawings: /img/2026-10-20/1/0.svg → the cleaned SVG of drawing 0 (the cover) of story 1.
 import { getStoryImage } from "@/lib/content";
 
 export const revalidate = 3600;

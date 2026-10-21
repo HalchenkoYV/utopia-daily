@@ -18,7 +18,7 @@ export default function BranchBadge() {
       <BranchIcon className="branch-icon" />
       <span className="branch-text">
         <span className="bt-main">Alternative world branch</span>
-        <span className="bt-date">since 28 September 2026</span>
+        <span className="bt-date">since 20 October 2026</span>
       </span>
     </Link>
   );

@@ -1,4 +1,4 @@
-// "2026-09-24" -> "Thursday, September 24". Computed in UTC so server and browser agree.
+// "2026-10-20" -> "Tuesday, October 20". Computed in UTC so server and browser agree.
 export function formatDay(date: string): string {
   const [y, m, d] = date.split("-").map(Number);
   return new Intl.DateTimeFormat("en-US", {

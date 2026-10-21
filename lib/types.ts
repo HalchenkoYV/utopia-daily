@@ -7,7 +7,7 @@ export type LevelContent = {
   excerpt: string;
   body: string;
   vocab: VocabItem[];
-  /** 1–2 sentences about the real world (September 2026), written at this level. */
+  /** 1–2 sentences about the real world (October 2026), written at this level. */
   reality_check: string;
 };
 

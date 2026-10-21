@@ -1,23 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CURRENT_TOPICS, IELTS_NOTE, LEVELS, TOPIC_THUMB, levelLabel, type Topic } from "@/lib/levels";
+import { IELTS_NOTE, LEVELS, TOPICS, TOPIC_THUMB, levelLabel, type Topic } from "@/lib/levels";
 
 export const metadata: Metadata = {
   title: "About us — Utopia Daily",
   description:
-    "Utopia Daily is a newspaper from an alternative world branch that splits from ours on 28 September 2026 and slowly, realistically gets better — written for English learners.",
+    "Utopia Daily is a newspaper from an alternative world branch that splits from ours on 20 October 2026 and slowly, realistically gets better — written for English learners.",
 };
 
-const RUBRIC_NOTES: Partial<Record<Topic, string>> = {
+const RUBRIC_NOTES: Record<Topic, string> = {
   "Politics & Peace": "Governance, democracy, diplomacy — and how wars end: ceasefires, talks, peace deals, demining, rebuilding, justice.",
-  Health: "Medical science, health systems, infections and antibiotics, access to medicines, health workers.",
-  Mind: "Mental health as a public issue, loneliness, attention and technology, trust, meaning.",
-  Society: "Cities and housing, education, communities, migration, social protection, transport.",
+  Health: "Medical science and technology, health systems, infections, access to medicines, health workers.",
+  Society: "Cities and housing, education, communities, migration, transport, work and prices.",
   "Food & Land": "Farming, soil, water, seeds, fishing, food prices, rural life, food waste.",
   "Planet & Energy": "Climate, the energy transition, nature, oceans, pollution, adapting to heat and floods.",
   "Technology & AI": "AI tools, rules and risks, computers and the internet, robots, space, discoveries.",
-  "Economy & Work": "Work and AI, wages, prices, trade, business, co-ops, inequality, taxes.",
-  "Culture & Sport": "Art, music, film, books, languages, games, sport, travel, festivals — and humour.",
 };
 
 // Points on the branch curve (see the path below), used for leaves.
@@ -31,7 +28,7 @@ const LEAVES: { x: number; y: number; r: number }[] = [
   { x: 1090, y: 142, r: -70 },
 ];
 
-/** Background drawing: our timeline runs on; at 28 September 2026 a branch grows away towards the light. */
+/** Background drawing: our timeline runs on; at 20 October 2026 a branch grows away towards the light. */
 function BranchArt() {
   const branch = "M470 410 C640 410 700 300 820 250 S1040 150 1200 110";
   return (
@@ -77,7 +74,7 @@ function BranchArt() {
       <circle className="node-ring" cx="470" cy="410" r="17" />
       <circle className="node" cx="470" cy="410" r="7" />
       <text className="art-label date" x="452" y="464" textAnchor="start">
-        28 Sep 2026
+        20 Oct 2026
       </text>
       <text className="art-label" x="1040" y="446" textAnchor="end">
         our timeline
@@ -97,9 +94,9 @@ export default function AboutPage() {
         <div className="about-hero-text">
           <div className="eyebrow">About Utopia Daily</div>
           <h1>An alternative world branch</h1>
-          <div className="since">since 28 September 2026</div>
+          <div className="since">since 20 October 2026</div>
           <p>
-            Good news from a world that, starting on 28 September 2026, slowly and realistically gets better —
+            Good news from a world that, starting on 20 October 2026, slowly and realistically gets better —
             written for people learning English.
           </p>
         </div>
@@ -108,14 +105,14 @@ export default function AboutPage() {
       <section className="about-section">
         <h2>Where the branch begins</h2>
         <p>
-          Until 27 September 2026, the Utopia Timeline is <em>our</em> world: the same countries, the same wars, the
-          same discoveries and the same problems. On 28 September 2026 history branches. From that day on we stop
+          Until 19 October 2026, the Utopia Timeline is <em>our</em> world: the same countries, the same wars, the
+          same discoveries and the same problems. On 20 October 2026 history branches. From that day on we stop
           following the real news and write the chronicle of a world that finds its way, one realistic decision at a
           time, towards a good life.
         </p>
         <p>
           One day on the site is one day in that world. Every story carries its day —{" "}
-          <span className="inline-label">Utopia Timeline · Day 1</span> was 28 September 2026 — and everything we
+          <span className="inline-label">Utopia Timeline · Day 1</span> was 20 October 2026 — and everything we
           publish becomes part of the world’s memory, so tomorrow’s news grows out of today’s.
         </p>
       </section>
@@ -153,7 +150,7 @@ export default function AboutPage() {
           papers: a ceasefire changes energy prices, which changes food prices, which changes how people live.
         </p>
         <ol className="rubric-list">
-          {CURRENT_TOPICS.map((topic) => (
+          {TOPICS.map((topic) => (
             <li key={topic}>
               <span className={`rubric-dot thumb ${TOPIC_THUMB[topic]}`} aria-hidden="true" />
               <div>
@@ -182,8 +179,8 @@ export default function AboutPage() {
             our world, with a source.
           </li>
           <li>
-            <strong>Drawings, not photos.</strong> Every story is illustrated with simple drawings — no real people,
-            no logos.
+            <strong>AI pictures, clearly marked.</strong> Story photos are made by AI and carry an “AI image” label.
+            They show invented scenes — no real people, no logos.
           </li>
         </ul>
       </section>
@@ -218,7 +215,7 @@ export default function AboutPage() {
       <section className="about-section">
         <h2>Who makes it</h2>
         <p>
-          Utopia Daily is a small independent project. The stories and drawings are created with AI, guided by a
+          Utopia Daily is a small independent project. The stories and pictures are created with AI, guided by a
           detailed rulebook for the world — realism, honesty, tone — and by the memory of everything the world has
           already published. Each issue is checked before it goes online.
         </p>

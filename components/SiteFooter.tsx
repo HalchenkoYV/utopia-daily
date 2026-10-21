@@ -9,7 +9,7 @@ export default function SiteFooter() {
       <div className="tagline">real; fake news</div>
       <Link href="/about" className="footer-branch">
         <BranchIcon className="branch-icon" />
-        Alternative world branch since 28 September 2026 · About us
+        Alternative world branch since 20 October 2026 · About us
       </Link>
       <div className="powered">powered by AI</div>
     </footer>

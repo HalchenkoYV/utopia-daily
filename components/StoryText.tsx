@@ -12,7 +12,7 @@ type Props = {
   paragraphs: string[];
   vocab: VocabItem[];
   level: Level;
-  storyPath: string; // "2026-09-28/1"
+  storyPath: string; // "2026-10-20/1"
   storyTitle: string;
   /** Drawings placed between paragraphs (by their position, 0..1). */
   figures?: Picture[];

@@ -4,7 +4,7 @@ Read this file fully before writing any code. Also read `mockup.html` (design re
 
 ## What we are building
 
-Utopia Daily is a good-news reading site for English learners. Stories are openly fictional "real; fake news" from the **Utopia Timeline**: the real world until 27 September 2026, then a branch that slowly and realistically gets better. Nine stories a day, one per rubric (Politics & Peace, Health, Mind, Society, Food & Land, Planet & Energy, Technology & AI, Economy & Work, Culture & Sport). Every story exists in 6 levels (A1, A2, B1, B2, C1, Native); the reader switches level inside the story. Readers can save unknown words to a personal "My Words" list and write a short retelling of what they read, which AI checks for understanding and grammar.
+Utopia Daily is a good-news reading site for English learners. Stories are openly fictional "real; fake news" from the **Utopia Timeline**: the real world until 19 October 2026, then a branch that slowly and realistically gets better (Day 1 = 20 October 2026). Six stories a day, one per rubric (Politics & Peace, Health, Society, Food & Land, Planet & Energy, Technology & AI). Every story exists in 6 levels (A1, A2, B1, B2, C1, Native); the reader switches level inside the story. Readers can save unknown words to a personal "My Words" list and write a short retelling of what they read, which AI checks for understanding and grammar.
 
 Audience: learners aged 15–65 worldwide. The entire UI is in English — no other languages anywhere in the interface.
 
@@ -12,15 +12,15 @@ Audience: learners aged 15–65 worldwide. The entire UI is in English — no ot
 
 - Next.js (App Router, TypeScript), deployed on Vercel
 - Supabase: auth (email + password, plus magic link) and the database for user data
-- Story content: the Supabase table `stories` (since 1 October 2026; before that, JSON files in `content/`). A scheduled Claude task writes each day's issue straight into the database through the Supabase connector, so no Git push or redeploy is needed for new stories.
+- Story content: the Supabase table `stories`. A scheduled Claude task writes each day's issue straight into the database through the Supabase connector, so no Git push or redeploy is needed for new stories.
 - Retelling check: Google Gemini API (cheap/free Flash model) via a server-side API route. Key in env var `GEMINI_API_KEY`. Never expose it to the browser.
 - Styling: plain CSS / CSS modules following `mockup.html` exactly (colors, fonts Fraunces + Inter, level colors, dark mode). No UI kit.
 
 ## Content format
 
-Table `stories`: `date`, `n` (1..9 = rubric), `status` (`draft` | `published`), `timeline_day`, `rubric`, `dateline`, `format`, `threads`, `entities`, `links`, `reality_source`, `levels` (jsonb: `a1`, `a2`, `b1`, `b2`, `c1`, `native` → `{title, excerpt, body, vocab[], reality_check}`), `images` (jsonb: 1–3 × `{svg, alt, caption, placement, position}`). Only `published` rows are readable by the site.
+Table `stories`: `date`, `n` (rubric number: 1, 2, 4, 5, 6, 7), `status` (`draft` | `published`), `timeline_day`, `rubric`, `dateline`, `format`, `threads`, `entities`, `links`, `reality_source`, `levels` (jsonb: `a1`, `a2`, `b1`, `b2`, `c1`, `native` → `{title, excerpt, body, vocab[], reality_check}`), `images` (jsonb: `{svg, alt, caption, placement, position, photo}`; the cover's `photo` is an AI image). Only `published` rows are readable by the site.
 
-Images: SVG drawings stored with the story and served by `/img/[date]/[n]/[i].svg` (cleaned, strict CSP). Stories without drawings fall back to the rubric gradient.
+Images: each cover is an AI photo from the public `photos` bucket, labelled "AI image" on the site. The stored SVG is a placeholder served by `/img/[date]/[n]/[i].svg` (cleaned, strict CSP); stories without images fall back to the rubric gradient.
 
 ## Pages
 

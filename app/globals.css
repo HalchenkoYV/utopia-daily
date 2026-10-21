@@ -68,7 +68,7 @@ header.site-header {
 .brand-block { display: flex; flex-direction: column; gap: 2px; }
 .brand-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 
-/* "Alternative world branch since 28 September 2026" — next to the logo, links to /about */
+/* "Alternative world branch since 20 October 2026" — next to the logo, links to /about */
 .branch-badge {
   display: flex; align-items: center; gap: 9px;
   padding: 6px 12px 6px 10px; border-radius: 10px;
@@ -253,14 +253,11 @@ main {
 .thumb.env { background: radial-gradient(circle at 25% 20%, #9FC9A6, transparent 60%), radial-gradient(circle at 75% 70%, #4F8A6A, transparent 55%), #C9DDC6; }
 .thumb.energy { background: radial-gradient(circle at 30% 25%, #F4D48A, transparent 60%), radial-gradient(circle at 75% 75%, #E0A93D, transparent 55%), #F0E3C0; }
 .thumb.community { background: radial-gradient(circle at 30% 30%, #A9C6E4, transparent 60%), radial-gradient(circle at 75% 70%, #33578A, transparent 55%), #CBDCEC; }
-.thumb.culture { background: radial-gradient(circle at 30% 30%, #E3B7C7, transparent 60%), radial-gradient(circle at 75% 70%, #A85C7A, transparent 55%), #EAD4DD; }
 .thumb.food { background: radial-gradient(circle at 30% 30%, #F1C79C, transparent 60%), radial-gradient(circle at 75% 70%, #C9773B, transparent 55%), #F3DEC4; }
 .thumb.politics { background: radial-gradient(circle at 30% 30%, #C5CDEB, transparent 60%), radial-gradient(circle at 75% 70%, #5A5F9C, transparent 55%), #DADDF0; }
 .thumb.health { background: radial-gradient(circle at 30% 25%, #A9DCD3, transparent 60%), radial-gradient(circle at 75% 72%, #2F8577, transparent 55%), #CFE8E3; }
-.thumb.mind { background: radial-gradient(circle at 30% 30%, #D6C8EE, transparent 60%), radial-gradient(circle at 75% 70%, #7A5BA8, transparent 55%), #E4DCF3; }
 .thumb.society { background: radial-gradient(circle at 30% 30%, #A9C6E4, transparent 60%), radial-gradient(circle at 75% 70%, #33578A, transparent 55%), #CBDCEC; }
 .thumb.planet { background: radial-gradient(circle at 25% 22%, #F4D48A, transparent 55%), radial-gradient(circle at 75% 72%, #4F8A6A, transparent 55%), #D2E2C8; }
-.thumb.economy { background: radial-gradient(circle at 30% 25%, #F4D48A, transparent 60%), radial-gradient(circle at 75% 75%, #B9862F, transparent 55%), #F0E3C0; }
 .thumb.tech { background: radial-gradient(circle at 30% 30%, #B9C6E8, transparent 60%), radial-gradient(circle at 75% 70%, #4E5D9A, transparent 55%), #D6DCEF; }
 
 /* ---- Today's stories ---- */

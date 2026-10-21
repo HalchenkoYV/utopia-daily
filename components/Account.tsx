@@ -14,7 +14,7 @@ export type SavedWord = {
   translation: string | null;
   definition: string | null;
   context: string | null; // the sentence the word was saved from
-  story_path: string | null; // "2026-09-24/1"
+  story_path: string | null; // "2026-10-20/1"
   story_title: string | null;
   level: Level | null;
   related_to: string | null; // set for words added from a word family

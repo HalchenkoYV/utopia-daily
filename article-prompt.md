@@ -2,8 +2,8 @@
 
 Stories are no longer generated from a single prompt in this repository.
 
-- **Rules of the world** (premise, rubrics, realism, honesty, voice, levels, drawings): Supabase table `world_docs`, path `bible`.
-- **Daily procedure** (re-read the world, plan, write Native, adapt to C1–A1 with cheaper models, draw, check, publish, update the world's memory): the Claude skill `utopia-daily-issue`, run every morning by a scheduled task.
+- **Rules of the world** (premise, six rubrics, realism, honesty, voice, levels, pictures): Supabase table `world_docs`, path `bible`.
+- **Daily procedure** (re-read the world, plan, write Native, adapt to C1–A1 with cheaper models, check, publish, order the AI cover photos, update the world's memory): `world_docs`, path `skill`, run every morning by a scheduled task.
 - **The world's memory**: `world_docs` (roadmap, baseline, dossiers, big themes), `world_chronicle`, `world_entities`, `world_metrics`.
 - **Quality check of a day**: `select * from public.check_issue('YYYY-MM-DD');`
 
