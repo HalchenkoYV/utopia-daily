@@ -3,7 +3,17 @@
 // Row Level Security lets the public (anon) key read only published rows.
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { LEVELS, TOPIC_THUMB, countWords, isTopic, readingMinutes, type Level } from "./levels";
-import type { DaySummary, LevelContent, Picture, Story, StoryImage, StorySummary, StoryView, VocabItem } from "./types";
+import type {
+  DaySummary,
+  LevelContent,
+  Picture,
+  PublishedDay,
+  Story,
+  StoryImage,
+  StorySummary,
+  StoryView,
+  VocabItem,
+} from "./types";
 
 /** How long a page may serve cached stories before checking the database again. */
 export const STORIES_REVALIDATE_SECONDS = 300;
@@ -113,28 +123,40 @@ function rowsToStories(rows: StoryRow[] | null): Story[] {
   return (rows ?? []).map(toStory).filter((s): s is Story => s !== null);
 }
 
-/** The newest `maxDays` days that have published stories, newest first, story 1 first. */
-export async function getRecentDays(maxDays: number): Promise<{ date: string; stories: Story[] }[]> {
+/** Every day that has published stories, newest first (for the date filter and pagination). */
+export async function getPublishedDays(): Promise<PublishedDay[]> {
   const supabase = db();
   if (!supabase) return [];
+  const { data, error } = await supabase.rpc("published_days");
+  if (error) {
+    console.error("[content] Could not load the list of days:", error.message);
+    return [];
+  }
+  return ((data ?? []) as { date: string; stories: number; timeline_day: number }[]).map((d) => ({
+    date: d.date,
+    stories: Number(d.stories),
+    timelineDay: d.timeline_day,
+  }));
+}
+
+/** Published stories of the given days, newest day first, story 1 first. */
+export async function getStoriesForDays(dates: string[]): Promise<{ date: string; stories: Story[] }[]> {
+  const valid = dates.filter((d) => DATE_RE.test(d));
+  const supabase = db();
+  if (!supabase || valid.length === 0) return [];
   const { data, error } = await supabase
     .from("stories")
     .select(COLUMNS)
+    .in("date", valid)
     .order("date", { ascending: false })
-    .order("n", { ascending: true })
-    .limit(maxDays * 12);
+    .order("n", { ascending: true });
   if (error) {
     console.error("[content] Could not load stories:", error.message);
     return [];
   }
-  const byDate = new Map<string, Story[]>();
-  for (const story of rowsToStories(data as StoryRow[])) {
-    if (!byDate.has(story.date) && byDate.size >= maxDays) break;
-    const list = byDate.get(story.date) ?? [];
-    list.push(story);
-    byDate.set(story.date, list);
-  }
-  return [...byDate.entries()].map(([date, stories]) => ({ date, stories }));
+  const byDate = new Map<string, Story[]>(valid.map((d) => [d, []]));
+  for (const story of rowsToStories(data as StoryRow[])) byDate.get(story.date)?.push(story);
+  return [...byDate.entries()].filter(([, stories]) => stories.length > 0).map(([date, stories]) => ({ date, stories }));
 }
 
 /** One published story, or null. Params come from the URL, so they are validated first. */

@@ -51,6 +51,9 @@ export type StorySummary = {
 
 export type DaySummary = { date: string; stories: StorySummary[] };
 
+/** A day with published stories: for the date filter and the page links. */
+export type PublishedDay = { date: string; stories: number; timelineDay: number };
+
 // Answers of /api/translate and /api/word-family.
 export type TranslateResult = {
   translation: string;

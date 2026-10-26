@@ -269,3 +269,22 @@ alter table public.saved_words add constraint saved_words_level_check check (lev
 alter table public.retellings drop constraint if exists retellings_level_check;
 alter table public.retellings add constraint retellings_level_check check (level in ('a1', 'a2', 'b1', 'b2', 'c1', 'native'));
 -- (The full migration also adds history/updated_at triggers and public.check_issue(date).)
+
+-- Days that have published stories, newest first: home page date filter and pagination.
+-- SECURITY INVOKER: Row Level Security on public.stories still decides what the caller can see.
+create or replace function public.published_days()
+returns table (date date, stories bigint, timeline_day integer)
+language sql
+stable
+security invoker
+set search_path = ''
+as $$
+  select s.date, count(*) as stories, min(s.timeline_day) as timeline_day
+  from public.stories s
+  where s.status = 'published'
+  group by s.date
+  order by s.date desc;
+$$;
+
+revoke all on function public.published_days() from public;
+grant execute on function public.published_days() to anon, authenticated;
